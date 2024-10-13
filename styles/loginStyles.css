@@ -2,13 +2,23 @@ body,
 html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 100%;
-    background-color: #18396a;
+    background: linear-gradient(to bottom right, #072146, #456594);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+main {
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
 }
 
 .form {
@@ -20,15 +30,23 @@ html {
     padding-bottom: 0.4em;
     background-color: #072146;
     border-radius: 25px;
-    transition: .4s ease-in-out;
+    transition: .4s ease-in-out, opacity 0.5s ease-in-out;
     max-width: 400px;
     width: 100%;
     box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 .form:hover {
     transform: scale(1.05);
-    border: 1px solid black;
+    border: 1px solid #f4f4f4;
 }
 
 #heading {
@@ -84,6 +102,7 @@ html {
     transition: .4s ease-in-out;
     background-color: #031836;
     color: white;
+    width: 50%;
 }
 
 .button1:hover {
@@ -101,6 +120,7 @@ html {
     transition: .4s ease-in-out;
     background-color: #031836;
     color: white;
+    width: 50%;
 }
 
 .button2:hover {
@@ -126,7 +146,7 @@ html {
 
 .cuadro-blanco {
     width: 100%;
-    height: 15%;
+    height: 20%;
     background-color: white;
     border: 1px solid black;
     display: flex;
@@ -139,4 +159,40 @@ html {
 .imagen-centrada {
     max-width: 100%;
     max-height: 75%;
+    margin: 10%;
+}
+
+.button4 {
+    padding: 0.5em;
+    padding-left: 2.3em;
+    padding-right: 2.3em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: .4s ease-in-out;
+    background-color: #031836;
+    color: white;
+    cursor: pointer;
+}
+
+.button4:hover {
+    background-color: #FFD700;
+    color: black;
+}
+
+.button5 {
+    margin-bottom: 3em;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: .4s ease-in-out;
+    background-color: #031836;
+    color: white;
+    cursor: pointer;
+}
+
+.button5:hover {
+    background-color: #87CEEB;
+    color: black;
 }

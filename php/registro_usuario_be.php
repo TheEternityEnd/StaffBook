@@ -1,76 +1,82 @@
 <?php
-    include 'conexion_be.php';
+include 'conexion_be.php';  // Conexión a la base de datos
 
-    $usuario = $_POST['userRegister'];
-    $nombre = $_POST['name'];
-    $apellido = $_POST['lastname'];
-    $email = $_POST['email'];
-    $contrasena = $_POST['passRegister'];
-    $verificar_contrasena = $_POST['passRegisterCon'];
-    
+$usuario = $_POST['userRegister'];
+$nombre = $_POST['name'];
+$apellido = $_POST['lastname'];
+$email = $_POST['email'];
+$contrasena = $_POST['passRegister'];
+$verificar_contrasena = $_POST['passRegisterCon'];
 
-    if ($contrasena == $verificar_contrasena){
-        // Encriptacion de la contraseña
-        $contrasena = hash('sha512', $contrasena);
+// Verificar que las contraseñas coincidan
+if ($contrasena == $verificar_contrasena) {
+    // Encriptación de la contraseña
+    $contrasena = hash('sha512', $contrasena);
 
-        $query = "INSERT INTO usuarios(usuario, nombre, apellido, email, contrasena) 
-                  VALUES('$usuario', '$nombre', '$apellido', '$email', '$contrasena')";
+    // Verificar si el correo ya está registrado
+    $stmt_email = $conexion->prepare("SELECT * FROM usuarios WHERE email = ?");
+    $stmt_email->bind_param('s', $email);  // 's' para string
+    $stmt_email->execute();
+    $resultado_email = $stmt_email->get_result();
 
-        // Verificar que el correo no se repita en la bd
-        $verifyEmail = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' ");
-
-        if(mysqli_num_rows($verifyEmail) > 0){
-            echo '
-                <script>
-                    alert("Este correo ya esta registrado.");
-                    window.location = "../index.php";
-                </script>
-            ';
-
-            exit();
-        }
-
-        // Verificar que el usuario no se repita en la bd
-        $verifyUser = mysqli_query($conexion, "SELECT * FROM usuarios WHERE usuario='$usuario' ");
-
-        if(mysqli_num_rows($verifyUser) > 0){
-            echo '
-                <script>
-                    alert("Este usuario ya esta registrado.");
-                    window.location = "../index.php";
-                </script>
-            ';
-
+    if ($resultado_email->num_rows > 0) {
+        echo '
+            <script>
+                alert("Este correo ya está registrado.");
+                window.location = "../index.php";
+            </script>
+        ';
         exit();
-        }
+    }
 
-        $ejecutar = mysqli_query($conexion, $query);
+    // Verificar si el usuario ya está registrado
+    $stmt_usuario = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ?");
+    $stmt_usuario->bind_param('s', $usuario);
+    $stmt_usuario->execute();
+    $resultado_usuario = $stmt_usuario->get_result();
 
-        if($ejecutar){
-            echo '
-                <script>
-                    window.location = "../index.php";
-                    alert("Usuario registrado exitosamente!");
-                </script>
-            ';
-        } else{
-            echo '
-                <script>
-                    window.location = "../index.php";
-                    alert("Error al registrar el usuario, Intentalo de nuevo mas tarde.");
-                </script>
-            ';
-        }
+    if ($resultado_usuario->num_rows > 0) {
+        echo '
+            <script>
+                alert("Este usuario ya está registrado.");
+                window.location = "../index.php";
+            </script>
+        ';
+        exit();
+    }
 
-        mysqli_close($conexion);
+    // Insertar el nuevo usuario en la base de datos
+    $stmt_insert = $conexion->prepare("INSERT INTO usuarios (usuario, nombre, apellido, email, contrasena) VALUES (?, ?, ?, ?, ?)");
+    $stmt_insert->bind_param('sssss', $usuario, $nombre, $apellido, $email, $contrasena);
 
-    } else{
+    if ($stmt_insert->execute()) {
         echo '
             <script>
                 window.location = "../index.php";
-                alert("Las contraseñas no coinciden.");
+                alert("Usuario registrado exitosamente!");
+            </script>
+        ';
+    } else {
+        echo '
+            <script>
+                window.location = "../index.php";
+                alert("Error al registrar el usuario, inténtalo de nuevo más tarde.");
             </script>
         ';
     }
-    
+
+    // Cerrar las sentencias y la conexión
+    $stmt_email->close();
+    $stmt_usuario->close();
+    $stmt_insert->close();
+    $conexion->close();
+
+} else {
+    echo '
+        <script>
+            window.location = "../index.php";
+            alert("Las contraseñas no coinciden.");
+        </script>
+    ';
+}
 ?>

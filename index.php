@@ -1,10 +1,19 @@
+<?php
+    session_start();
+
+    if(isset($_SESSION['usuario'])){
+        header("location: main.php");
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StaffBook Login</title>
+    <title>StaffBook − Iniciar Sesion</title>
     <link rel="stylesheet" href="css/loginStyles.css">
 </head>
 
@@ -16,7 +25,7 @@
     </div>
 
     <!--Formulario Login-->
-    <form id="form1" class="form visible" action="" method="POST">
+    <form id="form1" class="form visible" action="php/login_usuario_be.php" method="POST">
         <p id="heading ">Iniciar Sesión</p>
 
         <!--Usuario-->
@@ -25,7 +34,7 @@
                 <circle cx="12" cy="12" r="4"></circle>
                 <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
             </svg>
-            <input autocomplete="off " placeholder="Nombre de Usuario " class="input-field " type="text " name="usernameLogin" aria-label="Username " required>
+            <input autocomplete="off " placeholder="Nombre de Usuario " class="input-field " type="text " name="userLogin" aria-label="Username " required>
         </div>
 
         <!--Pass-->
@@ -34,7 +43,7 @@
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <input placeholder="Contraseña " class="input-field " type="password" name="passwordLogin" aria-label="Password " required>
+            <input placeholder="Contraseña " class="input-field " type="password" name="passLogin" aria-label="Password " required>
         </div>
 
         <!--Botones-->

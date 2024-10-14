@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEBUG</title>
-    <link rel="stylesheet" href="/styles/loginStyles.css">
+    <title>StaffBook Login</title>
+    <link rel="stylesheet" href="css/loginStyles.css">
 </head>
 
 <body>
     <div class=" cuadro-blanco ">
-        <img src="/images/TecNM.png " alt="Imagen centrada " class="imagen-centrada ">
-        <img src="/images/mainLogo1_Blue_Title.png " alt="Imagen centrada " class="imagen-centrada ">
-        <img src="/images/ITSPP-logotipo-colores.png " alt="Imagen centrada " class="imagen-centrada ">
+        <img src="images/TecNM.png " alt="Imagen centrada " class="imagen-centrada ">
+        <img src="images/mainLogo1_Blue_Title.png " alt="Imagen centrada " class="imagen-centrada ">
+        <img src="images/ITSPP-logotipo-colores.png " alt="Imagen centrada " class="imagen-centrada ">
     </div>
 
     <!--Formulario Login-->
@@ -25,7 +25,7 @@
                 <circle cx="12" cy="12" r="4"></circle>
                 <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
             </svg>
-            <input autocomplete="off " placeholder="Nombre de Usuario " class="input-field " type="text " name="username " aria-label="Username " required>
+            <input autocomplete="off " placeholder="Nombre de Usuario " class="input-field " type="text " name="usernameLogin" aria-label="Username " required>
         </div>
 
         <!--Pass-->
@@ -34,7 +34,7 @@
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <input placeholder="Contraseña " class="input-field " type="password" name="password " aria-label="Password " required>
+            <input placeholder="Contraseña " class="input-field " type="password" name="passwordLogin" aria-label="Password " required>
         </div>
 
         <!--Botones-->
@@ -47,7 +47,7 @@
 
 
     <!--Formulario Register-->
-    <form id="form2" class="form" action=" " method="POST ">
+    <form id="form2" class="form" action="php/registro_usuario_be.php" method="POST">
         <p id="heading ">Registrarse</p>
 
         <!--Usuario-->
@@ -56,7 +56,7 @@
                 <circle cx="12" cy="12" r="4"></circle>
                 <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
             </svg>
-            <input autocomplete="off " placeholder="Nombre de Usuario " class="input-field " type="text " name="username " aria-label="Username " required>
+            <input autocomplete="off " placeholder="Nombre de Usuario " class="input-field " type="text " name="userRegister" aria-label="Username " required>
         </div>
 
         <!--Correo-->
@@ -65,16 +65,25 @@
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-            <input autocomplete="off " placeholder="Correo Electronico" class="input-field " type="text " name="username " aria-label="Username " required>
+            <input autocomplete="off " placeholder="Correo Electronico" class="input-field " type="text " name="email" aria-label="Username " required>
         </div>
 
-        <!--Nombre Completo-->
+        <!--Nombre-->
         <div class="field ">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <input autocomplete="off " placeholder="Nombre Completo" class="input-field " type="text " name="username " aria-label="Username " required>
+            <input autocomplete="off " placeholder="Nombre" class="input-field " type="text " name="name" aria-label="Username " required>
+        </div>
+
+        <!--Apellido-->
+        <div class="field ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input autocomplete="off " placeholder="Apellido" class="input-field " type="text " name="lastname" aria-label="Username " required>
         </div>
 
         <!--Pass-->
@@ -83,7 +92,7 @@
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <input placeholder="Contraseña " class="input-field " type="password" name="password " aria-label="Password " required>
+            <input placeholder="Contraseña " class="input-field " type="password" name="passRegister" aria-label="Password " required>
         </div>
 
         <!--Confirmar pass-->
@@ -92,7 +101,7 @@
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <input placeholder="Confirmar Contraseña" class="input-field " type="password" name="password " aria-label="Password " required>
+            <input placeholder="Confirmar Contraseña" class="input-field " type="password" name="passRegisterCon" aria-label="Password " required>
         </div>
 
         <!--Botones-->

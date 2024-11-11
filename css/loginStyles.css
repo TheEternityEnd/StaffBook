@@ -103,6 +103,7 @@ main {
     background-color: #031836;
     color: white;
     width: 50%;
+    cursor: pointer;
 }
 
 .button1:hover {
@@ -121,6 +122,7 @@ main {
     background-color: #031836;
     color: white;
     width: 50%;
+    cursor: pointer;
 }
 
 .button2:hover {
@@ -137,6 +139,7 @@ main {
     transition: .4s ease-in-out;
     background-color: #031836;
     color: white;
+    cursor: pointer;
 }
 
 .button3:hover {

@@ -2,7 +2,6 @@ node_modules/
 package-lock.json
 package.json
 log/
-svg/
 debug.html
 css/debug.css
 js/debug.js

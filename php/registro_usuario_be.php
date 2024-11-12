@@ -8,6 +8,22 @@ $email = $_POST['email'];
 $contrasena = $_POST['passRegister'];
 $verificar_contrasena = $_POST['passRegisterCon'];
 
+// Función para verificar formato de email
+function verificarEmail($email) {
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
+// Verificar que el email tenga un formato válido
+if (!verificarEmail($email)) {
+    echo '
+        <script>
+            alert("El correo electrónico no tiene un formato válido.");
+            window.location = "../index.php";
+        </script>
+    ';
+    exit();
+}
+
 // Verificar que las contraseñas coincidan
 if ($contrasena == $verificar_contrasena) {
     // Encriptación de la contraseña

@@ -8,7 +8,7 @@
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -56,7 +56,7 @@
 
 
     <!--Formulario Register-->
-    <form id="form2" class="form" action="php/registro_usuario_be.php" method="POST">
+    <form id="form2" class="form margin" action="php/registro_usuario_be.php" method="POST">
         <p id="heading ">Registrarse</p>
 
         <!--Usuario-->

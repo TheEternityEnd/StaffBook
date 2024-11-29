@@ -23,7 +23,7 @@ if (!$result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="../css/registro.css">
 </head>
 
 <body>
@@ -84,7 +84,7 @@ if (!$result) {
         <?php
         // Generar las cartas desde los datos de la base de datos
         while ($empleado = mysqli_fetch_assoc($result)) {
-            echo '<div class="card">
+            echo '<a href="perfil.php?id=' . $empleado['clave'] . '" class="card">
                     <div class="card-header">
                         <div class="card-image">
                             <img src="https://via.placeholder.com/150" alt="Foto de ' . htmlspecialchars($empleado['nombre']) . '" style="width: 100%; height: 100%; object-fit: cover;">
@@ -95,7 +95,7 @@ if (!$result) {
                     <p>' . htmlspecialchars($empleado['email_personal']) . '</p>
                     <p>' . htmlspecialchars($empleado['telefono']) . '</p>
                     <p>' . htmlspecialchars($empleado['clave']) . '</p>
-                </div>';
+                </a>';
         }
         ?>
     </div>

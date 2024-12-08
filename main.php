@@ -71,7 +71,13 @@
             <button class="menu-close" onclick="toggleMenuSidebar()">⬅️</button>
         </div>
         <ul class="menu-items">
-            <li><span>👤➕</span> Agregar Empleado</li>
+            <li>
+                <form action="php/redirigirEmpleado.php" method="POST" style="display: inline;">
+                    <button type="submit" style="background: none; border: none; font-size: inherit; cursor: pointer;">
+                        <span>👤➕</span> Agregar Empleado
+                    </button>
+                </form>
+            </li>
             <li>
                 <span>📖</span> 
                 <a href="public/StaffBook - Guia de usuario.pdf" target="_blank" style="text-decoration: none; color: inherit;">Guía</a>

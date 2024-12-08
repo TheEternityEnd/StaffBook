@@ -57,3 +57,9 @@ function closeEmployeeDetails() {
     document.getElementById('employee-details-overlay').style.display = 'none';
     document.getElementById('employee-details').style.display = 'none';
 }
+
+
+// Redirige a la página form_empleados.php
+function redirectToFormEmpleado() {
+    window.location.href = '../public/form_empleados.php';
+}

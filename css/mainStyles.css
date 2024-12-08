@@ -8,45 +8,676 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+/*Header*/
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #0b2d63;
+    background-color: #072146;
     color: white;
     padding: 10px 20px;
-    height: 60px;
+    height: 70px;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .menu-icon {
-    font-size: 24px;
+    font-size: 35px;
     cursor: pointer;
     color: white;
 }
 
 .logo h1 {
-    font-size: 20px;
+    font-size: 36px;
     font-weight: bold;
     color: white;
-    margin-left: 10px;
+    margin: 0;
 }
 
-.search-bar input {
-    width: 300px;
-    padding: 5px 10px;
+.search-bar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 784px; /* Aumenta la longitud */
+    height: 50px; /* Aumenta la altura */
+    background-color: white;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    height: 100%;
+}
+
+.search-button:hover {
+    background-color: #f0f0f0;
+}
+
+.search-container input {
+    flex-grow: 1;
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    height: 100%;
+    outline: none;
 }
 
 .profile {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 .profile-img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid white;
 }
+
+.profile span{
+    font-size: 28px;
+}
+/*==============================Fin Header=========================*/
+
+/*Filtros*/
+
+.filters-section {
+    text-align: center; /* Centrar el contenido */
+    margin: 20px auto; /* Margen superior e inferior */
+    max-width: 2025px; /* Ancho máximo de la sección */
+}
+
+.category {
+    background-color: #6C9DE2; /* Color de fondo para categorías inactivas */
+    color: #fff; /* Color del texto */
+    border: none;
+    padding: 10px 20px; /* Tamaño del botón */
+    margin: 5px; /* Separación entre botones */
+    cursor: pointer;
+    height: 55px;
+    font-size: 24px;
+}
+
+.category.active {
+    background-color: #0b2d63; /* Fondo azul para la categoría activa */
+    color: white; /* Texto en blanco */
+}
+
+.filters select {
+    padding: 8px 10px; /* Tamaño del menú */
+    margin: 5px; /* Espacio entre los menús */
+    border: rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #ccc; /* Borde gris claro */
+    background-color: white; /* Fondo blanco */
+    cursor: pointer; /* Cursor para indicar interactividad */
+    font-size: 32px;
+    color: #B0B0B0;
+}
+
+.reset-filters {
+    background: none; /* Elimina fondo del botón */
+    border: none; /* Elimina borde del botón */
+    cursor: pointer; /* Cambia el cursor a pointer */
+    padding: 0; /* Sin espacio adicional */
+    display: flex; /* Asegura que el botón sea flexible */
+    align-items: center; /* Centra el icono verticalmente */
+    justify-content: center; /* Centra el icono horizontalmente */
+}
+
+.filters {
+    display: flex; /* Usa flexbox para alinear elementos */
+    align-items: center; /* Alinea verticalmente los filtros y el icono */
+    justify-content: center;
+    gap: 10px; /* Añade espacio entre filtros e icono */
+}
+
+
+.categories {
+    margin: 10px 0; /* Espaciado vertical entre las secciones */
+}
+
+/* Corrección para los botones de las letras */
+
+/* Ubicado en la clase .letter */
+.letter {
+    background-color: #d3d3d3; /* Fondo gris claro */
+    border: none;
+    padding: 0; /* Elimina el relleno adicional */
+    width: 75px; /* Ajusta el ancho para que quepan todas en una fila */
+    height: 75px; /* Ajusta el alto */
+    text-align: center; /* Centrar el texto */
+    line-height: 40px; /* Centrar el texto verticalmente */
+    border-radius: 0; /* Sin bordes redondeados */
+    cursor: pointer;
+    margin: 0; /* Elimina el margen */
+    font-size: 24px; /* Ajusta el tamaño de la fuente */
+}
+
+/* Agregar esta regla para asegurar que estén en una sola fila */
+.alphabet {
+    display: flex; /* Utiliza flexbox para alinear los botones */
+    flex-wrap: nowrap; /* Evita que los botones se envuelvan en una nueva fila */
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 0; /* Asegura que no haya espacio entre los botones */
+}
+/*===========================Fin Filtros===========================*/
+
+/* Botón circular de desplazamiento */
+.scroll-to-top {
+    position: fixed; /* Fija el botón en la pantalla */
+    bottom: 50px; /* Distancia desde el borde inferior */
+    right: 50px; /* Distancia desde el borde derecho */
+    background-color: #072146; /* Color de fondo */
+    border: none; /* Sin borde */
+    border-radius: 50%; 
+    width: 100px; /* Cambia el tamaño del botón aquí */
+    height: 100px; /* Cambia el tamaño del botón aquí */
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar el botón */
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
+}
+
+.scroll-to-top:hover {
+    background-color: #054080;
+}
+/*==============Fin Botón circular de desplazamiento===============*/
+
+/* Grid de las tarjetas */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 tarjetas por fila */
+    gap: 30px; /* Espacio entre las tarjetas */
+    width: 2280px; /* Ancho total de la fila */
+    margin: 20px auto; /* Centra el grid horizontalmente */
+}
+
+/* Estilo de la tarjeta */
+.card {
+    background-color: white;
+    width: 300px; /* Ancho de la tarjeta */
+    height: 472px; /* Alto de la tarjeta */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para la tarjeta */
+    border: 1px solid #9f9f9f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer; /* Hace que parezca un botón */
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Agranda ligeramente la tarjeta al pasar el cursor */
+}
+
+/* Imagen circular de la tarjeta */
+.card-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Hace la imagen circular */
+    margin-bottom: 15px;
+}
+
+/* Nombre y rol */
+.card-name {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-role {
+    font-size: 24px;
+    color: #808080;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+/* Información adicional */
+.card-info {
+    font-size: 20px;
+    color: #808080;
+    text-align: center;
+    margin-bottom: 14px;
+}
+/*====================Fin Grid de las tarjetas=====================*/
+
+/*Sidebar derecho*/
+/* Overlay para oscurecer el resto de la página */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none; /* Inicialmente oculto */
+}
+
+/* Sidebar principal */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -464px; /* Fuera de la pantalla */
+    width: 464px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease; /* Animación de entrada/salida */
+}
+
+/* Sidebar abierto */
+.sidebar.active {
+    right: 0; /* Entra en la pantalla */
+}
+
+/* Encabezado del sidebar */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 46px;
+    margin-top: 36px;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+/* Menú del sidebar */
+.sidebar-menu {
+    list-style: none;
+    padding: 20px;
+}
+
+.sidebar-menu li {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    margin-bottom: 70px;
+    cursor: pointer;
+}
+
+.sidebar-menu span {
+    margin-right: 18px;
+    margin-left: 26px;
+}
+
+/* Botón de cerrar sesión */
+.logout {
+    margin-top: auto;
+    padding: 15px;
+    font-size: 32px;
+    color: #BD2626;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 26px;
+    margin-bottom: 24px;
+}
+/*=========================Fin Sidebar derecho=====================*/
+
+/*Sidebar izquierdo*/
+/* Overlay para oscurecer el resto de la página */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none; /* Inicialmente oculto */
+}
+
+/* Sidebar izquierdo */
+.menu-sidebar {
+    position: fixed;
+    top: 0;
+    left: -464px; /* Fuera de la pantalla */
+    width: 464px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: left 0.3s ease; /* Animación de entrada/salida */
+}
+
+/* Sidebar activo */
+.menu-sidebar.active {
+    left: 0; /* Entra a la pantalla */
+}
+
+/* Encabezado del sidebar */
+.menu-header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.menu-close {
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    margin-left: 90%;
+}
+
+/* Elementos del menú */
+.menu-items {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+}
+
+.menu-items li {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+
+.menu-items span {
+    margin-right: 10px;
+}
+
+
+/*=======================Fin Sidebar izquierdo=====================*/
+
+/* Overlay para la ventana de confirmación */
+.confirm-logout-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    display: none; /* Inicialmente oculto */
+}
+
+/* Contenedor de la ventana de confirmación */
+.confirm-logout {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 2001;
+    display: none; /* Inicialmente oculto */
+    width: 300px;
+}
+
+/* Texto de la ventana */
+.confirm-logout p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Botones en la ventana de confirmación */
+.confirm-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.confirm-logout-btn {
+    padding: 10px 20px;
+    background-color: #BD2626;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.cancel-logout-btn {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.confirm-logout-btn:hover {
+    background-color: darkred;
+}
+
+.cancel-logout-btn:hover {
+    background-color: #bbb;
+}
+
+/*==========Fin Overlay para la ventana de confirmación============*/
+
+/*Perfil de Empleado*/
+/* Overlay para oscurecer la página */
+.employee-details-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    display: none; /* Inicialmente oculto */
+}
+
+/* Cuadro de detalles del empleado */
+.employee-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 1080px;
+    overflow-y: auto;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1002;
+    display: none; /* Inicialmente oculto */
+    padding: 48px 81px; /* Márgenes de 81px a los lados y 48px arriba */
+}
+
+/* Sección superior: details-top */
+.details-top {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Margen entre la imagen y el texto */
+    margin-bottom: 40px; /* Espacio inferior */
+    border-bottom: 1px solid #808080; /* Línea divisoria debajo de esta sección */
+    padding-bottom: 20px; /* Espaciado para que el contenido no toque la línea */
+}
+
+.details-top p{
+    font-size: 24px;
+    color: #808080;
+}
+
+.details-top img {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+}
+
+.details-top div {
+    flex-grow: 1;
+}
+
+/* Sección media: details-middle */
+.details-middle {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 30px; /* Espacio entre columnas */
+    margin-bottom: 40px; /* Espacio inferior */
+    border-bottom: 1px solid #808080; /* Línea divisoria debajo de esta sección */
+    padding-bottom: 20px; /* Espaciado para que el contenido no toque la línea */
+}
+
+.details-middle p {
+    margin: 0;
+}
+
+.details-middle p strong {
+    display: block; /* Coloca el texto en negrita en su propia línea */
+    font-size: 24px;
+}
+
+.details-middle p span {
+    display: block; /* Coloca el texto en gris debajo */
+    font-size: 24px;
+    color: gray;
+}
+
+/* Sección inferior: details-bottom */
+.details-bottom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 30px; /* Espacio entre columnas */
+}
+
+.details-bottom p {
+    margin: 0;
+}
+
+.details-bottom p strong {
+    display: block; /* Coloca el texto en negrita en su propia línea */
+    font-size: 24px;
+}
+
+.details-bottom p span {
+    display: block; /* Coloca el texto en gris debajo */
+    font-size: 24px;
+    color: gray;
+}
+
+.details-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Botón de edición en la esquina inferior derecha */
+.edit-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #072146; /* Color de fondo */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Botón circular */
+    width: 50px; /* Tamaño del botón */
+    height: 50px; /* Tamaño del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+    font-size: 24px; /* Tamaño del ícono */
+    z-index: 1002; /* Encima del overlay */
+}
+
+.edit-button:hover {
+    background-color: #054080; /* Color al pasar el cursor */
+}
+
+/*=====================Fin Perfil de Empleado======================*/
+
+@media (max-width: 1440px) {
+    .card-grid {
+        grid-template-columns: repeat(4, 1fr); /* 5 tarjetas por fila */
+        width: 1500px; /* Ajustar el ancho */
+        gap: 20px; /* Reducir el espacio entre tarjetas */
+    }
+}
+
+@media (max-width: 1024px) {
+    .search-container {
+        width: 600px; /* Reduce el ancho */
+        height: 45px; /* Reduce la altura */
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 tarjetas por fila */
+        width: 90%; /* Ancho fluido */
+        gap: 15px; /* Más compacto */
+    }
+}
+
+/* Ajustes para pantallas pequeñas (ej. tablets y móviles grandes) */
+@media (max-width: 768px) {
+    .search-container {
+        width: 100%; /* Ancho completo */
+        height: 40px; /* Reduce aún más la altura */
+        border-radius: 3px; /* Ajusta el borde */
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 tarjetas por fila */
+        width: 100%; /* Ancho completo */
+        gap: 10px; /* Espacio mínimo */
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas (ej. teléfonos pequeños) */
+@media (max-width: 480px) {
+    .search-container {
+        width: 100%; /* Ancho completo */
+        height: 35px; /* Más compacto */
+        box-shadow: none; /* Elimina la sombra */
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 tarjeta por fila */
+        gap: 5px; /* Reducir aún más el espacio */
+    }
+
+}
+/*Batalle un chingo en hacer que la pagina principal se miraran bien
+y ni si quiera se si lo que quiero hacer va a funcionar, actualizare
+si si funciono. Si no, aparecere en las noticias :skull:*/

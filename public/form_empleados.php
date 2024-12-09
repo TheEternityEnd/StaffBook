@@ -2,7 +2,7 @@
     session_start();
 
     if(!isset($_SESSION['usuario'])){
-        header("location: index.php");
+        header("location: ../index.php");
         session_destroy();
         die();
     }
@@ -37,10 +37,60 @@
         </div>
     </header>
 
+    <!--Sidebar derecho del perfil de usuario-->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://dummyimage.com/80x80/000/fff.png" alt="Profile Picture" class="sidebar-img">
+            <div>
+                <h3>Quandale Dingle</h3>
+                <p>email@example.com</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><span>⚙️</span> Configuración</li>
+            <li><span>🗂️</span> Historial</li>
+            <li><span>📊</span> Exportar a Excel</li>
+        </ul>
+        <button class="logout" onclick="showLogoutConfirmation()" style="background: none;"><span>⬅️</span> Cerrar Sesión</button>
+    </div>
+
+    <!-- Sidebar izquierdo de menu-->
+    <div class="menu-overlay" id="menu-overlay" onclick="toggleMenuSidebar()"></div>
+    <div class="menu-sidebar" id="menu-sidebar">
+        <div class="menu-header">
+            <button class="menu-close" style="background: none;" onclick="toggleMenuSidebar()">⬅️</button>
+        </div>
+        <ul class="menu-items">
+            <li>
+                <form action="../php/redirigirEmpleado.php" method="POST" style="display: inline;">
+                    <button type="submit" style="background: none; border: none; font-size: inherit; cursor: pointer; color: black">
+                        <span>👤➕</span> Agregar Empleado
+                    </button>
+                </form>
+            </li>
+            <li>
+                <span>📖</span> 
+                <a href="public/StaffBook - Guia de usuario.pdf" target="_blank" style="text-decoration: none; color: inherit;">Guía</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Ventana de confirmación para cerrar sesión -->
+    <div class="confirm-logout-overlay" id="confirm-logout-overlay" onclick="closeLogoutConfirmation()"></div>
+    <div class="confirm-logout" id="confirm-logout">
+        <p>¿Seguro que quieres cerrar sesión?</p>
+        <div class="confirm-buttons">
+            <button class="confirm-logout-btn" onclick="cerrarSesion1()">Cerrar sesión</button>
+            <button class="cancel-logout-btn" onclick="closeLogoutConfirmation()">Cancelar</button>
+        </div>
+    </div>
+
     <!--Formulario de registro-->
+    
     <div class="container">
         <h1>Formulario de Registro de Empleado</h1>
-        <form>
+        <form action="../php/procesar_empleado.php" method="POST" enctype="multipart/form-data">
             <div>
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required>
@@ -51,15 +101,37 @@
             </div>
             <div>
                 <label for="funcion_empleado">Función del Empleado</label>
-                <input type="text" id="funcion_empleado" name="funcion_empleado" required>
+                <select id="funcion_empleado" name="funcion_empleado" required>
+                    <option value="NA">-Seleccione una opcion-</option>
+                    <option value="Administrativo">Administrativo</option>
+                    <option value="Analista">Analista</option>
+                    <option value="Apoyo">Apoyo</option>
+                    <option value="Docencia">Docencia</option>
+                    <option value="Incapacidad">Incapacidad</option>
+                    <option value="Incapacidad Permanente">Incapacidad Permanente</option>
+                    <option value="Servicio">Servicio</option>
+                </select>
             </div>
             <div>
                 <label for="tipo_empleado">Tipo de Empleado</label>
-                <input type="text" id="tipo_empleado" name="tipo_empleado" required>
+                <select type="text" id="tipo_empleado" name="tipo_empleado" required>
+                    <option value="NA">-Seleccione una opcion-</option>
+                    <option value="Confianza">Confianza</option>
+                    <option value="Determinado">Determinado</option>
+                    <option value="Indeterminado">Indeterminado</option>
+                    <option value="Eventual">Eventual</option>
+                </select>
             </div>
             <div>
                 <label for="area">Área</label>
-                <input type="text" id="area" name="area" required>
+                <select id="area" name="area" required>
+                    <option value="NA">-Seleccione una opcion-</option>
+                    <option value="Sub. de Serv. Administrativos">Sub. de Serv. Administrativos</option>
+                    <option value="Direccion General">Direccion General</option>
+                    <option value="Sub. Academica">Sub. Academica</option>
+                    <option value="Sub. de Admon. y Finanzas">Sub. de Admon. y Finanzas</option>
+                    <option value="Sub. de Plan. y Vinculacion">Sub. de Plan. y Vinculacion</option>
+                </select>
             </div>
             <div>
                 <label for="puesto">Puesto</label>
@@ -67,18 +139,36 @@
             </div>
             <div>
                 <label for="escolaridad">Escolaridad</label>
-                <input type="text" id="escolaridad" name="escolaridad" required>
+                <select id="escolaridad" name="escolaridad" required>
+                    <option value="NA">-Selecciona una opcion-</option>
+                    <option value="Ing. en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
+                    <option value="Ing. Civil">Ing. Civil</option>
+                    <option value="Ing. Induatrial">Ing. Industrial</option>
+                    <option value="Lic. en Administracion">Lic. en Administracion</option>
+                    <option value="No es Docente">No es Docente</option>
+                </select>
             </div>
             <div>
                 <label for="sexo">Sexo</label>
                 <select id="sexo" name="sexo" required>
+                    <option value="NA">-Seleccione una opcion-</option>
                     <option value="Hombre">Hombre</option>
                     <option value="Mujer">Mujer</option>
+                    <option value="Otro">Otro</option>
                 </select>
             </div>
             <div>
                 <label for="tipo_sangre">Tipo de Sangre</label>
-                <input type="text" id="tipo_sangre" name="tipo_sangre" required>
+                <select id="tipo_sangre" name="tipo_sangre" required>
+                    <option value="NA">-Seleccione una opcion-</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
             </div>
             <div>
                 <label for="fecha_nacimiento">Fecha de Nacimiento</label>
@@ -86,7 +176,13 @@
             </div>
             <div>
                 <label for="estado_civil">Estado Civil</label>
-                <input type="text" id="estado_civil" name="estado_civil" required>
+                <select id="estado_civil" name="estado_civil" required>
+                    <option value="NA">-Seleccione una opcion-</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Soltero">Soltero</option>
+                    <option value="Viudo">Viudo</option>
+                    <option value="Divorciado">Divorciado</option>
+                </select>
             </div>
             <div>
                 <label for="curp">CURP</label>
@@ -125,11 +221,22 @@
                 <input type="email" id="email_tecnm" name="email_tecnm" required>
             </div>
             <div class="upload-image-section">
-                <label for="imagen_empleado">Subir Imagen del Empleado (5 MB)</label>
-                <input type="file" id="imagen_empleado" name="imagen_empleado" accept="image/*">
+                <label for="imagen_empleado">Subir Imagen del Empleado (PNG o JPG, 5MB)</label>
+                <input 
+                    type="file" 
+                    id="imagen_empleado" 
+                    name="imagen_empleado" 
+                    accept=".png, .jpg" 
+                    onchange="validateImage()" 
+                >
+                <p id="image-error" style="color: red; font-size: 14px; display: none;">El archivo debe ser una imagen PNG o JPG menor a 5 MB.</p>
             </div>
+
             <button type="submit">Registrar Empleado</button>
         </form>
     </div>
+
+    <script src="../js/form_empleadosScript.js"></script>
+    <script src="../js/mainScript.js"></script>
 </body>
 </html>

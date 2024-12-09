@@ -120,7 +120,7 @@ body {
 }
 
 .category.active {
-    background-color: #0b2d63; /* Fondo azul para la categoría activa */
+    background-color: #072146; /* Fondo azul para la categoría activa */
     color: white; /* Texto en blanco */
 }
 
@@ -181,6 +181,11 @@ body {
     justify-content: center; /* Centra los botones horizontalmente */
     gap: 0; /* Asegura que no haya espacio entre los botones */
 }
+
+.letter.active {
+    background-color: #072146;
+    color: white;
+}
 /*===========================Fin Filtros===========================*/
 
 /* Botón circular de desplazamiento */
@@ -199,6 +204,7 @@ body {
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar el botón */
     z-index: 1000; /* Asegura que esté encima de otros elementos */
+    display: none;
 }
 
 .scroll-to-top:hover {

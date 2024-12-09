@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'conexion_be.php';  // Asumiendo que esta conexión utiliza MySQLi
+include 'conexion_be.php';  // Conexión a la base de datos
 
 $usuario = $_POST['userLogin'];
 $contrasena = $_POST['passLogin'];
@@ -19,6 +19,16 @@ $resultado = $stmt->get_result();
 // Verificar si hay resultados (usuario encontrado)
 if ($resultado->num_rows > 0) {
     $_SESSION['usuario'] = $usuario;
+
+    // Llamar a log.php para registrar la acción
+    $accion = "inicio_sesion";
+    $detalle = "Inicio de sesión exitoso desde IP: " . $_SERVER['REMOTE_ADDR'];
+
+    // Preparar la consulta para insertar en movimientos_log
+    $stmt_log = $conexion->prepare("INSERT INTO movimientos_log (usuario, accion, detalle) VALUES (?, ?, ?)");
+    $stmt_log->bind_param('sss', $usuario, $accion, $detalle);
+    $stmt_log->execute();
+    $stmt_log->close();
 
     // Redirigir a la página principal
     header("location: ../main.php");

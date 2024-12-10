@@ -46,11 +46,78 @@ function toggleMenuSidebar() {
     }
 }
 
-// Función para abrir el cuadro de detalles del empleado
-function openEmployeeDetails() {
-    document.getElementById('employee-details-overlay').style.display = 'block';
-    document.getElementById('employee-details').style.display = 'block';
+function openEmployeeDetails(button) {
+    const employeeId = button.getAttribute('data-id');
+
+    // Realizar la solicitud AJAX
+    fetch('./php/get_employee.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${employeeId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+
+        // Llenar los detalles del empleado
+        document.querySelector('.details-top img').src = data.img || (data.sexo === 'Hombre' ? 'https://avatar.iran.liara.run/public/7' : 'https://avatar.iran.liara.run/public/55');
+        document.querySelector('.details-top h1').textContent = data.nombre;
+        document.querySelector('.details-top p:nth-child(2)').textContent = data.clave;
+        document.querySelector('.details-top p:nth-child(3)').textContent = data.funcion_empleado;
+        document.querySelector('.details-top p:nth-child(4)').textContent = data.puesto;
+        document.querySelector('.details-top p:nth-child(5)').textContent = data.tipo_empleado;
+        document.querySelector('.details-top p:nth-child(6)').textContent = data.email_tecnm;
+
+        const detailsMiddle = document.querySelectorAll('.details-middle p span');
+        detailsMiddle[0].textContent = data.email_personal;
+        detailsMiddle[1].textContent = data.telefono;
+        detailsMiddle[2].textContent = new Date(data.fecha_nacimiento).toLocaleDateString();
+        detailsMiddle[3].textContent = new Date(data.fecha_ingreso).toLocaleDateString();
+        detailsMiddle[4].textContent = data.fecha_baja ? new Date(data.fecha_baja).toLocaleDateString() : 'NA';
+        detailsMiddle[5].textContent = data.afiliacion;
+
+        const detailsBottom = document.querySelectorAll('.details-bottom p span');
+        detailsBottom[0].textContent = data.tipo_sangre;
+        detailsBottom[1].textContent = data.sexo;
+        detailsBottom[2].textContent = data.estado_civil;
+        detailsBottom[3].textContent = data.curp;
+        detailsBottom[4].textContent = data.puesto;
+        detailsBottom[5].textContent = data.domicilio;
+        detailsBottom[6].textContent = data.escolaridad;
+        detailsBottom[7].textContent = data.rfc;
+
+        // Mostrar el cuadro de detalles
+        document.getElementById('employee-details').style.display = 'block';
+        document.getElementById('employee-details-overlay').style.display = 'block';
+    })
+    .catch(error => console.error('Error al obtener los datos del empleado:', error));
 }
+
+
+// Función para guardar la clave del empleado en PHP
+function saveEmployeeKeyToSession(clave) {
+    fetch('./php/saveEmployeeKey.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ clave: clave }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Clave guardada en la sesión:', clave);
+        } else {
+            console.error('Error al guardar la clave en la sesión:', data.error);
+        }
+    })
+    .catch(error => console.error('Error al guardar la clave en la sesión:', error));
+}
+
+
 
 // Función para cerrar el cuadro de detalles del empleado
 function closeEmployeeDetails() {
@@ -127,3 +194,4 @@ window.addEventListener('scroll', () => {
 
 // Añadir el evento click al botón
 document.querySelector('.scroll-to-top').addEventListener('click', scrollToTop);
+

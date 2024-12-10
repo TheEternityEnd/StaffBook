@@ -143,7 +143,7 @@
                     <option value="NA">-Selecciona una opcion-</option>
                     <option value="Ing. en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
                     <option value="Ing. Civil">Ing. Civil</option>
-                    <option value="Ing. Induatrial">Ing. Industrial</option>
+                    <option value="Ing. Industrial">Ing. Industrial</option>
                     <option value="Lic. en Administracion">Lic. en Administracion</option>
                     <option value="No es Docente">No es Docente</option>
                 </select>
@@ -161,6 +161,7 @@
                 <label for="tipo_sangre">Tipo de Sangre</label>
                 <select id="tipo_sangre" name="tipo_sangre" required>
                     <option value="NA">-Seleccione una opcion-</option>
+                    <option value="A+">A+</option>
                     <option value="A-">A-</option>
                     <option value="B+">B+</option>
                     <option value="B-">B-</option>

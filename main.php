@@ -1,12 +1,20 @@
 <?php
     session_start();
+    include 'php/conexion_be.php'; // Conexión a la base de datos
 
-    if(!isset($_SESSION['usuario'])){
+    if (!isset($_SESSION['usuario'])) {
         header("location: index.php");
         session_destroy();
         die();
     }
+
+    // Consulta para obtener todos los empleados ordenados alfabéticamente por nombre
+    $query = "SELECT nombre, clave, funcion_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img
+            FROM empleados 
+            ORDER BY nombre ASC"; // Ordenar alfabéticamente por nombre
+    $result = $conexion->query($query);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -166,221 +174,43 @@
         </div>
     </main>
 
-    <!--Grid de la pagina-->
+    <!-- Grid de tarjetas -->
     <div class="card-grid">
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">A</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">B</h3>
-            <p class="card-role">Analista</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">C</h3>
-            <p class="card-role">Apoyo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">D</h3>
-            <p class="card-role">Docencia</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">E</h3>
-            <p class="card-role">Incapacidad</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">F</h3>
-            <p class="card-role">Incapacidad Permanente</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">G</h3>
-            <p class="card-role">Servicio</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">H</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">I</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">J</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">K</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">L</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">M</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">N</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">O</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">P</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">Q</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">R</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">S</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">T</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">U</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">V</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">W</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">X</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">Y</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
-        <button class="card" onclick="openEmployeeDetails()">
-            <img src="https://dummyimage.com/180x180/000/fff" alt="Foto de perfil" class="card-img">
-            <h3 class="card-name">Z</h3>
-            <p class="card-role">Administrativo</p>
-            <p class="card-info">📞 638-105-5882</p>
-            <p class="card-info">📅 17/mar/94</p>
-            <p class="card-info">✉️ email@example.com</p>
-        </button>
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                // Verificar si hay una imagen, de lo contrario usar el placeholder
+                $img_url = $row['img'];
+                if (!$img_url) {
+                    $img_url = ($row['sexo'] === 'Hombre') 
+                        ? 'https://avatar.iran.liara.run/public/7' 
+                        : 'https://avatar.iran.liara.run/public/55';
+                }
+
+                // Formatear fecha de nacimiento
+                $fecha_nacimiento = date("d/M/y", strtotime($row['fecha_nacimiento']));
+
+                // Renderizar la tarjeta con `data-clave`
+                echo '
+                <button class="card" data-clave="' . htmlspecialchars($row['clave']) . '" onclick="openEmployeeDetails(this)">
+                    <img src="' . htmlspecialchars($img_url) . '" alt="Foto de perfil" class="card-img">
+                    <h3 class="card-name">' . htmlspecialchars($row['nombre']) . '</h3>
+                    <p class="card-role">' . htmlspecialchars($row['funcion_empleado']) . '</p>
+                    <p class="card-info">📞 ' . htmlspecialchars($row['telefono']) . '</p>
+                    <p class="card-info">📅 ' . $fecha_nacimiento . '</p>
+                    <p class="card-info">✉️ ' . htmlspecialchars($row['email_personal']) . '</p>
+                </button>';
+            }
+        } else {
+            echo '<p>No hay empleados registrados.</p>';
+        }
+        ?>
     </div>
+
 
     <!-- Cuadro de detalles del empleado -->
     <div class="employee-details-overlay" id="employee-details-overlay" onclick="closeEmployeeDetails()"></div>
-    <div class="employee-details" id="employee-details">
+    <div class="employee-details" id="employee-details">    
         <!-- Sección superior -->
         <div class="details-top">
             <img src="https://dummyimage.com/230x230/000/fff" alt="Foto de perfil">
@@ -415,11 +245,16 @@
             <p><strong>Escolaridad:</strong> <span>LIC. EN DERECHO</span></p>
             <p><strong>RFC:</strong> <span>AEMA940317N74</span></p>
         </div>
-        <!-- Botón de edición dentro del .employee-details-overlay -->
-        <button class="edit-button" onclick="editEmployeeDetails(event)">
-            ✏️
-        </button>
 
+        <!-- Botón de edición dentro del .employee-details-overlay -->
+        <div class="button-container">
+            <button class="delete-button" onclick="deleteEmployee()">
+                ❌
+            </button>
+            <button class="edit-button" onclick="editEmployeeDetails(event)">
+                ✏️
+            </button>
+        </div>
     </div>
 
     <!--Boton para ir arriba de la pagina-->
@@ -440,7 +275,13 @@
     </div>
 
     <!--Script-->
-    <script src="./js/mainScript.js"></script>
+    <script src="js/mainScript.js"></script>
 </body>
 
 </html>
+
+<?php
+// Cerrar la conexión a la base de datos
+$result->close();
+$conexion->close();
+?>

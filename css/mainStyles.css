@@ -632,6 +632,29 @@ body {
     background-color: #054080; /* Color al pasar el cursor */
 }
 
+/* Botón de eliminación a la izquierda del botón de edición */
+.delete-button {
+    position: fixed;
+    bottom: 20px;
+    right: 90px; /* Ajusta la posición para que esté a la izquierda del botón de edición */
+    background-color: #072146; /* Color de fondo */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Botón circular */
+    width: 50px; /* Tamaño del botón */
+    height: 50px; /* Tamaño del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+    font-size: 24px; /* Tamaño del ícono */
+    z-index: 1002; /* Encima del overlay */
+}
+
+.delete-button:hover {
+    background-color: darkred; /* Color al pasar el cursor */
+}
 /*=====================Fin Perfil de Empleado======================*/
 
 @media (max-width: 1440px) {

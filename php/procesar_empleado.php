@@ -33,13 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($imagen_empleado['size'] > 0) {
         $img_name = uniqid() . '_' . basename($imagen_empleado['name']);
-        $img_path = '../uploads/' . $img_name;
-
+        $img_path = 'uploads/' . $img_name; // Cambiar la ruta aquí para que solo guarde "uploads/"
+    
         // Mover la imagen al directorio de destino
-        if (!move_uploaded_file($imagen_empleado['tmp_name'], $img_path)) {
+        $full_path = '../' . $img_path; // Usar esta variable para mover el archivo físicamente
+        if (!move_uploaded_file($imagen_empleado['tmp_name'], $full_path)) {
             die("Error al subir la imagen.");
         }
     }
+    
 
     // Insertar los datos en la base de datos
     $sql = "INSERT INTO empleados (nombre, clave, funcion_empleado, tipo_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img) 

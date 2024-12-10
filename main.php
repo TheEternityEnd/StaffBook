@@ -201,7 +201,9 @@
                         </form>
 
                         <!-- Botón de edición -->
-                        <button class="edit-button" onclick="editEmployeeDetails(' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '); event.stopPropagation();">✏️</button>
+                        <form style="display:inline;">
+                            <button class="edit-button" onclick="event.stopPropagation(); window.location.href=\'php/form_empleados_update.php?id=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '\'">✏️</button>
+                        </form>
                     </div>
                     <!-- Contenido de la tarjeta -->
                     <img src="' . htmlspecialchars($img_url) . '" alt="Foto de perfil" class="card-img">

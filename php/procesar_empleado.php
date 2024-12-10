@@ -6,6 +6,7 @@ include '../php/conexion_be.php'; // Conexión a la base de datos
 // Verificar si el formulario se envió correctamente
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario
+    $id = isset($_POST['id']) ? $_POST['id'] : null;
     $nombre = $_POST['nombre'];
     $clave = $_POST['clave'];
     $funcion_empleado = $_POST['funcion_empleado'];
@@ -42,13 +43,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
+    if ($id) {
+        // Actualizar los datos existentes
+        $query = "UPDATE empleados SET nombre = ?, clave = ?, funcion_empleado = ?, tipo_empleado = ?, area = ?, puesto = ?, escolaridad = ?, sexo = ?, tipo_sangre = ?, fecha_nacimiento = ?, estado_civil = ?, curp = ?, rfc = ?, afiliacion = ?, fecha_ingreso = ?, fecha_baja = ?, telefono = ?, domicilio = ?, email_personal = ?, email_tecnm = ?, img = ? WHERE id = ?";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param("ssssssssssssssssssssi",
+            $nombre,
+            $clave,
+            $funcion_empleado,
+            $_POST['tipo_empleado'],
+            $_POST['area'],
+            $_POST['puesto'],
+            $_POST['escolaridad'],
+            $_POST['sexo'],
+            $_POST['tipo_sangre'],
+            $_POST['fecha_nacimiento'],
+            $_POST['estado_civil'],
+            $_POST['curp'],
+            $_POST['rfc'],
+            $_POST['afiliacion'],
+            $_POST['fecha_ingreso'],
+            $_POST['fecha_baja'],
+            $_POST['telefono'],
+            $_POST['domicilio'],
+            $_POST['email_personal'],
+            $_POST['email_tecnm'],
+            $_POST['imagen_empleado'],
+            $id
+        );
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        // Insertar los datos en la base de datos
+        $sql = "INSERT INTO empleados (nombre, clave, funcion_empleado, tipo_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    // Insertar los datos en la base de datos
-    $sql = "INSERT INTO empleados (nombre, clave, funcion_empleado, tipo_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param(
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param(
         'sssssssssssssssssssss',
         $nombre,
         $clave,
@@ -71,24 +102,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email_personal,
         $email_tecnm,
         $img_path
-    );
+        );
 
-    // Ejecutar la consulta y verificar errores
-    if ($stmt->execute()) {
+        // Ejecutar la consulta y verificar errores
+        if ($stmt->execute()) {
         echo '
             <script>
                 alert("Empleado registrado exitosamente.");
                 window.location = "../main.php";
             </script>
         ';
-    } else {
+        } else {
         echo '
             <script>
                 alert("Error al registrar el empleado. Por favor, inténtelo de nuevo.");
                 window.history.back();
             </script>
         ';
+        }
     }
+    
 
     // Cerrar la sentencia y la conexión
     $stmt->close();

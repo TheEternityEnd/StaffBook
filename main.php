@@ -176,9 +176,8 @@
 
     <!-- Grid de tarjetas -->
     <div class="card-grid">
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        <?php if ($result->num_rows > 0) { ?>
+            <?php while ($row = $result->fetch_assoc()) { 
                 // Verificar si hay una imagen, de lo contrario usar el placeholder
                 $img_url = $row['img'];
                 if (!$img_url) {
@@ -187,40 +186,29 @@
                         : 'https://avatar.iran.liara.run/public/55';
                 }
 
-                // Formatear fecha de nacimiento
+                // Formatear la fecha de nacimiento
                 $fecha_nacimiento = date("d/M/y", strtotime($row['fecha_nacimiento']));
-
-                // Renderizar la tarjeta con `data-clave`
-                echo '
-                <div class="card" onclick="openEmployeeDetails(this)" data-clave="' . htmlspecialchars($row['clave'], ENT_QUOTES, 'UTF-8') . '">
-                    <!-- Contenedor de botones -->
-                    <div class="card-buttons">
-                        <!-- Botón de eliminación -->
-                        <form style="display:inline;">
-                            <button type="button" class="delete-button" onclick="event.stopPropagation(); showDeleteConfirmation(\'' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '\')">❌</button>
-                        </form>
-
-                        <!-- Botón de edición -->
-                        <form style="display:inline;">
-                            <button class="edit-button" onclick="event.stopPropagation(); window.location.href=\'php/form_empleados_update.php?id=' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '\'">✏️</button>
-                        </form>
-                    </div>
+            ?>
+                <div class="card" onclick="openEmployeeDetails(this)" data-clave="<?php echo htmlspecialchars($row['clave'], ENT_QUOTES, 'UTF-8'); ?>">
                     <!-- Contenido de la tarjeta -->
-                    <img src="' . htmlspecialchars($img_url) . '" alt="Foto de perfil" class="card-img">
-                    <h3 class="card-name">' . htmlspecialchars($row['nombre']) . '</h3>
-                    <p class="card-role">' . htmlspecialchars($row['funcion_empleado']) . '</p>
-                    <p class="card-info">📞 ' . htmlspecialchars($row['telefono']) . '</p>
-                    <p class="card-info">📅 ' . $fecha_nacimiento . '</p>
-                    <p class="card-info">   ' . htmlspecialchars($row['email_personal']) . '</p>
-                </div>';
-            }
-        } else {
-            echo '<p>No hay empleados registrados.</p>';
-        }
-        ?>
+                    <img src="<?php echo htmlspecialchars($img_url); ?>" alt="Foto de perfil" class="card-img">
+                    <h3 class="card-name"><?php echo htmlspecialchars($row['nombre']); ?></h3>
+                    <p class="card-role"><?php echo htmlspecialchars($row['funcion_empleado']); ?></p>
+                    <p class="card-info">📞 <?php echo htmlspecialchars($row['telefono']); ?></p>
+                    <p class="card-info">📅 <?php echo $fecha_nacimiento; ?></p>
+                    <p class="card-info"><?php echo htmlspecialchars($row['email_personal']); ?></p>
+                    <form action="./public/form_empleados_update.php" method="GET">
+                        <div class="card-buttons">
+                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                            <button class="edit-button" type="submit">✏️</button>
+                        </div>
+                    </form>
+                </div>
+            <?php } ?>
+        <?php } else { ?>
+            <p>No hay empleados registrados.</p>
+        <?php } ?>
     </div>
-
-
 
     <!-- Cuadro de detalles del empleado -->
     <div class="employee-details-overlay" id="employee-details-overlay" onclick="closeEmployeeDetails()"></div>

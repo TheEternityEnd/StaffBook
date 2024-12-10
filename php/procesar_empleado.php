@@ -2,7 +2,6 @@
 // Iniciar la sesión
 session_start();
 include '../php/conexion_be.php'; // Conexión a la base de datos
-
 // Verificar si el formulario se envió correctamente
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario

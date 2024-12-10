@@ -28,8 +28,3 @@ function validateImage() {
         errorMessage.style.display = "none";
     }
 }
-
-function cerrarSesion1() {
-    // Redirigir al archivo cerrarSesion.php
-    window.location.href = '../php/cerrarSesion.php';
-}

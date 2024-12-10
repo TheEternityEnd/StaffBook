@@ -215,30 +215,35 @@ body {
 /* Grid de las tarjetas */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* 7 tarjetas por fila */
-    gap: 30px; /* Espacio entre las tarjetas */
+    grid-template-columns: repeat(7, 1fr); /* Mantén las tarjetas en filas de 7 */
+    gap: 30px; /* Espacio constante entre tarjetas */
     width: 2280px; /* Ancho total de la fila */
     margin: 20px auto; /* Centra el grid horizontalmente */
+    justify-items: center; /* Alinea todas las tarjetas al centro */
 }
 
-/* Estilo de la tarjeta */
 .card {
+    position: relative; /* Posiciona correctamente los botones dentro de la tarjeta */
     background-color: white;
-    width: 300px; /* Ancho de la tarjeta */
-    height: 472px; /* Alto de la tarjeta */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para la tarjeta */
+    width: 300px; /* Asegura un ancho constante */
+    height: 472px; /* Asegura un alto constante */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #9f9f9f;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Alinea el contenido central */
     padding: 20px;
-    cursor: pointer; /* Hace que parezca un botón */
     transition: transform 0.2s ease-in-out;
 }
 
+.card img {
+    display: block;
+    margin: 0 auto; /* Centra la imagen dentro de la tarjeta */
+}
+
 .card:hover {
-    transform: scale(1.05); /* Agranda ligeramente la tarjeta al pasar el cursor */
+    transform: scale(1.05);
 }
 
 /* Imagen circular de la tarjeta */
@@ -270,6 +275,71 @@ body {
     text-align: center;
     margin-bottom: 14px;
 }
+
+/* Contenedor para los botones */
+.card-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    z-index: 1; /* Asegura que estén sobre la tarjeta */
+    opacity: 0; /* Ocultos por defecto */
+    pointer-events: none; /* Deshabilitar interacción cuando están ocultos */
+    transition: opacity 0.3s ease; /* Transición para el fade in/out */
+    z-index: 1009;
+}
+
+/* Mostrar botones al pasar el cursor */
+.card:hover .card-buttons {
+    opacity: 1; /* Mostrar los botones */
+    pointer-events: auto; /* Habilitar interacción */
+}
+
+/* Botón de edición */
+.edit-button {
+    background-color: #072146;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #054080;
+    transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
+}
+
+/* Botón de eliminación */
+.delete-button {
+    background-color: #072146;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+    transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
+}
+
 /*====================Fin Grid de las tarjetas=====================*/
 
 /*Sidebar derecho*/
@@ -607,55 +677,66 @@ body {
     font-size: 24px;
     cursor: pointer;
 }
-
-/* Botón de edición en la esquina inferior derecha */
-.edit-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #072146; /* Color de fondo */
-    color: white;
-    border: none;
-    border-radius: 50%; /* Botón circular */
-    width: 50px; /* Tamaño del botón */
-    height: 50px; /* Tamaño del botón */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
-    font-size: 24px; /* Tamaño del ícono */
-    z-index: 1002; /* Encima del overlay */
-}
-
-.edit-button:hover {
-    background-color: #054080; /* Color al pasar el cursor */
-}
-
-/* Botón de eliminación a la izquierda del botón de edición */
-.delete-button {
-    position: fixed;
-    bottom: 20px;
-    right: 90px; /* Ajusta la posición para que esté a la izquierda del botón de edición */
-    background-color: #072146; /* Color de fondo */
-    color: white;
-    border: none;
-    border-radius: 50%; /* Botón circular */
-    width: 50px; /* Tamaño del botón */
-    height: 50px; /* Tamaño del botón */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
-    font-size: 24px; /* Tamaño del ícono */
-    z-index: 1002; /* Encima del overlay */
-}
-
-.delete-button:hover {
-    background-color: darkred; /* Color al pasar el cursor */
-}
 /*=====================Fin Perfil de Empleado======================*/
+
+/*Confirmar eliminar usuario*/
+/* Overlay que obscurece la página */
+.delete-confirm-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Ventana de confirmación */
+.delete-confirm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    text-align: center;
+    width: 300px;
+}
+
+/* Botones dentro de la ventana */
+.confirm-delete-btn,
+.cancel-delete-btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-delete-btn {
+    background-color: darkred;
+    color: white;
+}
+
+.cancel-delete-btn {
+    background-color: #ccc;
+    color: black;
+}
+
+.confirm-delete-btn:hover {
+    background-color: red;
+}
+
+.cancel-delete-btn:hover {
+    background-color: #aaa;
+}
+/*==============Fin Confirmar eliminar usuario=====================*/
+
 
 @media (max-width: 1440px) {
     .card-grid {

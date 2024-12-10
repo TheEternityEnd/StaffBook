@@ -9,7 +9,7 @@
     }
 
     // Consulta para obtener todos los empleados ordenados alfabéticamente por nombre
-    $query = "SELECT nombre, clave, funcion_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img
+    $query = "SELECT id, nombre, clave, funcion_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img
             FROM empleados 
             ORDER BY nombre ASC"; // Ordenar alfabéticamente por nombre
     $result = $conexion->query($query);
@@ -192,14 +192,25 @@
 
                 // Renderizar la tarjeta con `data-clave`
                 echo '
-                <button class="card" data-clave="' . htmlspecialchars($row['clave']) . '" onclick="openEmployeeDetails(this)">
+                <div class="card" onclick="openEmployeeDetails(this)" data-clave="' . htmlspecialchars($row['clave'], ENT_QUOTES, 'UTF-8') . '">
+                    <!-- Contenedor de botones -->
+                    <div class="card-buttons">
+                        <!-- Botón de eliminación -->
+                        <form style="display:inline;">
+                            <button type="button" class="delete-button" onclick="event.stopPropagation(); showDeleteConfirmation(\'' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '\')">❌</button>
+                        </form>
+
+                        <!-- Botón de edición -->
+                        <button class="edit-button" onclick="editEmployeeDetails(' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . '); event.stopPropagation();">✏️</button>
+                    </div>
+                    <!-- Contenido de la tarjeta -->
                     <img src="' . htmlspecialchars($img_url) . '" alt="Foto de perfil" class="card-img">
                     <h3 class="card-name">' . htmlspecialchars($row['nombre']) . '</h3>
                     <p class="card-role">' . htmlspecialchars($row['funcion_empleado']) . '</p>
                     <p class="card-info">📞 ' . htmlspecialchars($row['telefono']) . '</p>
                     <p class="card-info">📅 ' . $fecha_nacimiento . '</p>
-                    <p class="card-info">✉️ ' . htmlspecialchars($row['email_personal']) . '</p>
-                </button>';
+                    <p class="card-info">   ' . htmlspecialchars($row['email_personal']) . '</p>
+                </div>';
             }
         } else {
             echo '<p>No hay empleados registrados.</p>';
@@ -246,16 +257,6 @@
             <p><strong>Escolaridad:</strong> <span>LIC. EN DERECHO</span></p>
             <p><strong>RFC:</strong> <span>AEMA940317N74</span></p>
         </div>
-
-        <!-- Botón de edición dentro del .employee-details-overlay -->
-        <div class="button-container">
-            <button class="delete-button" onclick="deleteEmployee()">
-                ❌
-            </button>
-            <button class="edit-button" onclick="editEmployeeDetails(event)">
-                ✏️
-            </button>
-        </div>
     </div>
 
     <!--Boton para ir arriba de la pagina-->
@@ -274,6 +275,18 @@
             <button class="cancel-logout-btn" onclick="closeLogoutConfirmation()">Cancelar</button>
         </div>
     </div>
+
+    <div class="delete-confirm-overlay" id="delete-confirm-overlay"></div>
+    <div class="delete-confirm" id="delete-confirm">
+        <p>¿Estás seguro de que deseas eliminar este empleado?</p>
+        <form action="php/delete_employee.php" method="POST">
+            <input type="hidden" id="delete-id" name="ids[]">
+            <button type="submit" class="confirm-delete-btn">Eliminar</button>
+            <button type="button" class="cancel-delete-btn" onclick="closeDeleteConfirmation()">Cancelar</button>
+        </form>
+    </div>
+
+
 
     <!--Script-->
     <script src="js/mainScript.js"></script>

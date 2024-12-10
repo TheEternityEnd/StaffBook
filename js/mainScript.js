@@ -196,3 +196,17 @@ window.addEventListener('scroll', () => {
 // Añadir el evento click al botón
 document.querySelector('.scroll-to-top').addEventListener('click', scrollToTop);
 
+function showDeleteConfirmation(id) {
+    // Muestra el overlay y la ventana de confirmación
+    document.getElementById('delete-confirm-overlay').style.display = 'block';
+    document.getElementById('delete-confirm').style.display = 'block';
+
+    // Establece el ID del empleado en el campo oculto del formulario
+    document.getElementById('delete-id').value = id;
+}
+
+function closeDeleteConfirmation() {
+    // Oculta el overlay y la ventana de confirmación
+    document.getElementById('delete-confirm-overlay').style.display = 'none';
+    document.getElementById('delete-confirm').style.display = 'none';
+}

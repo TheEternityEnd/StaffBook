@@ -208,6 +208,7 @@
     </div>
 
 
+
     <!-- Cuadro de detalles del empleado -->
     <div class="employee-details-overlay" id="employee-details-overlay" onclick="closeEmployeeDetails()"></div>
     <div class="employee-details" id="employee-details">    

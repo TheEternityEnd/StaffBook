@@ -47,13 +47,13 @@ function toggleMenuSidebar() {
 }
 
 function openEmployeeDetails(button) {
-    const employeeId = button.getAttribute('data-id');
+    const employeeClave = button.getAttribute('data-clave'); // Obtener la clave del empleado
 
     // Realizar la solicitud AJAX
     fetch('./php/get_employee.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${employeeId}`
+        body: `clave=${employeeClave}` // Enviar la clave en lugar del ID
     })
     .then(response => response.json())
     .then(data => {
@@ -95,6 +95,7 @@ function openEmployeeDetails(button) {
     })
     .catch(error => console.error('Error al obtener los datos del empleado:', error));
 }
+
 
 
 // Función para guardar la clave del empleado en PHP

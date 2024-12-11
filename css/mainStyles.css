@@ -405,6 +405,16 @@ body {
     cursor: pointer;
 }
 
+.sidebar-menu button {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    margin-bottom: 70px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
 .sidebar-menu span {
     margin-right: 18px;
     margin-left: 26px;

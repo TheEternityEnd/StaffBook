@@ -92,7 +92,7 @@
         </div>
         <ul class="sidebar-menu">
             <li><span>🗂️</span> Historial</li>
-            <li><span>📊</span> Exportar a Excel</li>
+            <button onclick="window.location.href='./php/exportar_excel.php'"><span>📊</span> Exportar a Excel</button>
         </ul>
         <button class="logout" onclick="showLogoutConfirmation()"><span>⬅️</span> Cerrar Sesión</button>
     </div>

@@ -63,6 +63,10 @@ CREATE TABLE movimientos_log (
 
 El programa ya tiene inculida las llaves de acceso a la base de datos local, en caso de que quieras modificar o hacerla con una base de datos en linea, modifica conexion_be.php en la carpeta php.
 
+Supongo que ya sabes que es PHP y que necesitas para hacerlo funcionar, pero en caso de que no, descarga xampp del navegador y mueve la carpeta StaffBook dentro del directorio C:\xampp\htdocs\ ejecuta apache y el login de StaffBook deberia de aparecer en la url http://localhost/StaffBook/index.php
+
+
+
 
 
 

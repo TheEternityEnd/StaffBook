@@ -1,3 +1,7 @@
+=================================================================
+=============== VER EN RAW PARA MEJOR COMPRENSION ===============
+=================================================================
+
 Este es un proyecto integrador diseñado para el Intituto Tecnologico Superior de Puerto Peñasco.
 
 ===GUIA DE USO===

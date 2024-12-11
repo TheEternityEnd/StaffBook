@@ -1,5 +1,6 @@
 <?php
 include './conexion_be.php';
+session_start(); // Asegurar que la sesión esté iniciada
 
 if (isset($_POST['ids'])) {
     $ids = $_POST['ids']; // Array de IDs seleccionados
@@ -17,6 +18,14 @@ if (isset($_POST['ids'])) {
             $nombres[] = $row['nombre'];
         }
 
+        // Verificar si el usuario está almacenado en la sesión
+        if (isset($_SESSION['usuario'])) {
+            $usuario = $conexion->real_escape_string($_SESSION['usuario']);
+        } else {
+            echo "Error: No se encontró información del usuario en la sesión.";
+            exit;
+        }
+
         // Eliminar los empleados
         $sql = "DELETE FROM empleados WHERE id IN ($ids_string)";
         if ($conexion->query($sql) === TRUE) {
@@ -24,7 +33,6 @@ if (isset($_POST['ids'])) {
 
             // Registrar en la tabla movimientos_log
             $fecha_hora = date('Y-m-d H:i:s');
-            $usuario = $_SESSION['usuario']; // Asumiendo que el usuario está en la sesión
             $accion = "Eliminación de empleados";
 
             foreach ($nombres as $nombre) {

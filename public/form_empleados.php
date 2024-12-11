@@ -78,8 +78,10 @@
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li><span>🗂️</span> Historial</li>
-            <li><span>📊</span> Exportar a Excel</li>
+            <form action="../php/redirigir_log.php">
+                <button class="history" type="submit"><span>🗂️</span> Historial</button>
+            </form>
+            <button class="export" onclick="window.location.href='../php/exportar_excel.php'"><span>📊</span> Exportar a Excel</button>
         </ul>
         <button class="logout" onclick="showLogoutConfirmation()" style="background: none;"><span>⬅️</span> Cerrar Sesión</button>
     </div>
@@ -110,7 +112,7 @@
     <div class="confirm-logout" id="confirm-logout">
         <p>¿Seguro que quieres cerrar sesión?</p>
         <div class="confirm-buttons">
-            <button class="confirm-logout-btn" onclick="cerrarSesion1()">Cerrar sesión</button>
+            <button class="confirm-logout-btn" onclick="window.location.href = '../php/cerrarSesion.php';">Cerrar sesión</button>
             <button class="cancel-logout-btn" onclick="closeLogoutConfirmation()">Cancelar</button>
         </div>
     </div>

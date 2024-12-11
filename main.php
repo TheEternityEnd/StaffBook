@@ -91,7 +91,9 @@
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li><span>🗂️</span> Historial</li>
+            <form action="php/redirigir_log.php">
+                <button type="submit"><span>🗂️</span> Historial</button>
+            </form>
             <button onclick="window.location.href='./php/exportar_excel.php'"><span>📊</span> Exportar a Excel</button>
         </ul>
         <button class="logout" onclick="showLogoutConfirmation()"><span>⬅️</span> Cerrar Sesión</button>

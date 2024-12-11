@@ -1,28 +1,67 @@
 <?php
+session_start();
 include '../php/conexion_be.php'; // Conexión a la base de datos
 
+if (!isset($_SESSION['usuario'])) {
+    header("location: index.php");
+    session_destroy();
+    die();
+}
+
+$usuario = $_SESSION['usuario'];
+
+// Consultar los datos del usuario
+$stmt = $conexion->prepare("SELECT nombre, apellido, email, img FROM usuarios WHERE usuario = ?");
+$stmt->bind_param('s', $usuario);
+$stmt->execute();
+$result_usuario = $stmt->get_result();
+
+// Verificar si se encontró el usuario
+if ($result_usuario->num_rows > 0) {
+    $user_data = $result_usuario->fetch_assoc();
+    $nombre_usuario = $user_data['nombre'] . " " . $user_data['apellido'];
+    $email_usuario = $user_data['email'];
+    $img_usuario = $user_data['img'] ? $user_data['img'] : './images/avatar_ph.png';
+} else {
+    // Redirigir si no se encuentran datos
+    header("location: index.php");
+    session_destroy();
+    die();
+}
+
+$stmt->close();
+
+// Consulta para obtener todos los empleados ordenados alfabéticamente por nombre
+$query = "SELECT id, nombre, clave, funcion_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img
+        FROM empleados 
+        ORDER BY nombre ASC"; // Ordenar alfabéticamente por nombre
+$result = $conexion->query($query);
+
+// Lógica para obtener detalles de un empleado específico
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']); // Asegúrate de sanitizar el valor
-    $query = "SELECT * FROM empleados WHERE id = ?";
-    $stmt = $conexion->prepare($query);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $query_detalle = "SELECT * FROM empleados WHERE id = ?";
+    $stmt_detalle = $conexion->prepare($query_detalle);
+    $stmt_detalle->bind_param("i", $id);
+    $stmt_detalle->execute();
+    $result_detalle = $stmt_detalle->get_result();
 
-    if ($result->num_rows > 0) {
-        $employee = $result->fetch_assoc();
+    if ($result_detalle->num_rows > 0) {
+        $employee = $result_detalle->fetch_assoc();
     } else {
         echo "Empleado no encontrado.";
         exit;
     }
 
-    $stmt->close();
-    $conexion->close();
+    $stmt_detalle->close();
 } else {
     echo "ID de empleado no proporcionado.";
     exit;
 }
+
+$conexion->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -30,7 +69,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Registro de Empleado</title>
+    <title>Formulario de Actualizacion de Empleado</title>
     <link rel="stylesheet" href="../css/form-empleadosStyles.css">
 </head>
 <body>
@@ -49,8 +88,8 @@ if (isset($_GET['id'])) {
             </div>
         </div>
         <div class="profile" onclick="toggleSidebar()">
-            <img src="https://dummyimage.com/50x50/000/fff.png" alt="Profile Picture" class="profile-img">
-            <span>Quandale Dingle</span>
+            <img src="../images/avatar_ph.png" alt="Profile Picture" class="profile-img">
+            <span><?php echo htmlspecialchars($nombre_usuario); ?></span>
         </div>
     </header>
 
@@ -58,17 +97,19 @@ if (isset($_GET['id'])) {
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="https://dummyimage.com/80x80/000/fff.png" alt="Profile Picture" class="sidebar-img">
+            <img src="../images/avatar_ph.png" alt="Profile Picture" class="sidebar-img">
             <div>
-                <h3>Quandale Dingle</h3>
-                <p>email@example.com</p>
+                <h3><?php echo htmlspecialchars($nombre_usuario); ?></h3>
+                <p><?php echo htmlspecialchars($email_usuario); ?></p>
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li><span>🗂️</span> Historial</li>
-            <li><span>📊</span> Exportar a Excel</li>
+            <form action="../php/redirigir_log.php">
+                <button class="history" type="submit"><span>🗂️</span> Historial</button>
+            </form>
+            <button class="export" onclick="window.location.href='../php/exportar_excel.php'"><span>📊</span> Exportar a Excel</button>
         </ul>
-        <button class="logout" onclick="showLogoutConfirmation()" style="background: none;"><span>⬅️</span> Cerrar Sesión</button>
+        <button class="logout" onclick="showLogoutConfirmation()"><span>⬅️</span> Cerrar Sesión</button>
     </div>
 
     <!-- Sidebar izquierdo de menu-->
@@ -97,14 +138,14 @@ if (isset($_GET['id'])) {
     <div class="confirm-logout" id="confirm-logout">
         <p>¿Seguro que quieres cerrar sesión?</p>
         <div class="confirm-buttons">
-            <button class="confirm-logout-btn" onclick="cerrarSesion1()">Cerrar sesión</button>
+            <button class="confirm-logout-btn" onclick="window.location.href = '../php/cerrarSesion.php';">Cerrar sesión</button>
             <button class="cancel-logout-btn" onclick="closeLogoutConfirmation()">Cancelar</button>
         </div>
     </div>
 
     <!--Formulario de registro-->
     <div class="container">
-        <h1>Formulario de Registro de Empleado</h1>
+        <h1>Actualizar la Informacion del Empleado: <?php echo htmlspecialchars($employee['nombre']); ?></h1>
         <form action="../php/update_empleado.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $employee['id']; ?>">
                 <div>
@@ -243,7 +284,7 @@ if (isset($_GET['id'])) {
                     <p id="image-error" style="color: red; font-size: 14px; display: none;">El archivo debe ser una imagen PNG o JPG menor a 5 MB.</p>
                 </div>
             
-            <button type="submit">Actualizar</button>
+            <button class="update" type="submit">Actualizar</button>
         </form>
 
     </div>

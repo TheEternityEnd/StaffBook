@@ -1,11 +1,41 @@
 <?php
     session_start();
+    include '../php/conexion_be.php'; // Conexión a la base de datos
 
-    if(!isset($_SESSION['usuario'])){
-        header("location: ../index.php");
+    if (!isset($_SESSION['usuario'])) {
+        header("location: index.php");
         session_destroy();
         die();
     }
+
+    $usuario = $_SESSION['usuario'];
+
+    // Consultar los datos del usuario
+    $stmt = $conexion->prepare("SELECT nombre, apellido, email, img FROM usuarios WHERE usuario = ?");
+    $stmt->bind_param('s', $usuario);
+    $stmt->execute();
+    $result_usuario = $stmt->get_result();
+
+    // Verificar si se encontró el usuario
+    if ($result_usuario->num_rows > 0) {
+        $user_data = $result_usuario->fetch_assoc();
+        $nombre_usuario = $user_data['nombre'] . " " . $user_data['apellido'];
+        $email_usuario = $user_data['email'];
+        $img_usuario = $user_data['img'] ? $user_data['img'] : './images/avatar_ph.png';
+    } else {
+        // Redirigir si no se encuentran datos
+        header("location: index.php");
+        session_destroy();
+        die();
+    }
+
+    $stmt->close();
+
+    // Consulta para obtener todos los empleados ordenados alfabéticamente por nombre
+    $query = "SELECT id, nombre, clave, funcion_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img
+            FROM empleados 
+            ORDER BY nombre ASC"; // Ordenar alfabéticamente por nombre
+    $result = $conexion->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +62,8 @@
             </div>
         </div>
         <div class="profile" onclick="toggleSidebar()">
-            <img src="https://dummyimage.com/50x50/000/fff.png" alt="Profile Picture" class="profile-img">
-            <span>Quandale Dingle</span>
+            <img src="../images/avatar_ph.png" alt="Profile Picture" class="profile-img">
+            <span><?php echo htmlspecialchars($nombre_usuario); ?></span>
         </div>
     </header>
 
@@ -41,14 +71,13 @@
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="https://dummyimage.com/80x80/000/fff.png" alt="Profile Picture" class="sidebar-img">
-            <div>
-                <h3>Quandale Dingle</h3>
-                <p>email@example.com</p>
+            <img src="../images/avatar_ph.png" alt="Profile Picture" class="sidebar-img">
+             <div>
+                <h3><?php echo htmlspecialchars($nombre_usuario); ?></h3>
+                <p><?php echo htmlspecialchars($email_usuario); ?></p>
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li><span>⚙️</span> Configuración</li>
             <li><span>🗂️</span> Historial</li>
             <li><span>📊</span> Exportar a Excel</li>
         </ul>

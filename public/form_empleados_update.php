@@ -65,7 +65,6 @@ if (isset($_GET['id'])) {
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li><span>⚙️</span> Configuración</li>
             <li><span>🗂️</span> Historial</li>
             <li><span>📊</span> Exportar a Excel</li>
         </ul>

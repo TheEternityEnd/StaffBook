@@ -21,7 +21,7 @@ if ($resultado->num_rows > 0) {
     $_SESSION['usuario'] = $usuario;
 
     // Llamar a log.php para registrar la acción
-    $accion = "inicio_sesion";
+    $accion = "Inicio de Sesion";
     $detalle = "Inicio de sesión exitoso desde IP: " . $_SERVER['REMOTE_ADDR'];
 
     // Preparar la consulta para insertar en movimientos_log

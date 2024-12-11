@@ -81,7 +81,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
-        echo "Empleado actualizado exitosamente.";
+        $usuario = $_SESSION['usuario']; // Usuario actual desde la sesión
+        $accion = "Actualización de empleado";
+        $detalle = "Se modificó el empleado con ID: $id";
+    
+        $logQuery = "INSERT INTO movimientos_log (fecha_hora, usuario, accion, detalle) VALUES (NOW(), ?, ?, ?)";
+        $logStmt = $conexion->prepare($logQuery);
+        $logStmt->bind_param("sss", $usuario, $accion, $detalle);
+    
+        if ($logStmt->execute()) {
+            $logStmt->close(); // Cerrar la sentencia
+        } else {
+            echo '
+                <script>
+                    alert("Error al registrar en el log de movimientos.");
+                    window.history.back();
+                </script>
+            ';
+            exit;
+        }
+    
+        // Mensaje de éxito
+        echo '
+            <script>
+                alert("Empleado actualizado exitosamente.");
+                window.location = "../main.php";
+            </script>
+        ';
     } else {
         echo "Error al actualizar el empleado: " . $stmt->error;
     }

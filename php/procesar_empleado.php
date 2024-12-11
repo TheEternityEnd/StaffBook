@@ -105,20 +105,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Ejecutar la consulta y verificar errores
         if ($stmt->execute()) {
-        echo '
-            <script>
-                alert("Empleado registrado exitosamente.");
-                window.location = "../main.php";
-            </script>
-        ';
-        } else {
-        echo '
-            <script>
-                alert("Error al registrar el empleado. Por favor, inténtelo de nuevo.");
-                window.history.back();
-            </script>
-        ';
+            // Registrar la acción en la tabla movimientos_log
+            $usuario = $_SESSION['usuario']; // Obtener el usuario actual desde la sesión
+            $accion = $id ? "Actualización de empleado" : "Registro de empleado";
+            $detalle = "Empleado: $nombre, Clave: $clave, Área: $area, Puesto: $puesto";
+        
+            $logQuery = "INSERT INTO movimientos_log (fecha_hora, usuario, accion, detalle) VALUES (NOW(), ?, ?, ?)";
+            $logStmt = $conexion->prepare($logQuery);
+            $logStmt->bind_param("sss", $usuario, $accion, $detalle);
+        
+            if ($logStmt->execute()) {
+                $logStmt->close(); // Cerrar la sentencia
+            } else {
+                echo '
+                    <script>
+                        alert("Error al registrar en el log de movimientos.");
+                        window.history.back();
+                    </script>
+                ';
+                exit; // Salir si ocurre un error
+            }
+        
+            echo '
+                <script>
+                    alert("Empleado registrado exitosamente.");
+                    window.location = "../main.php";
+                </script>
+            ';
         }
+        
     }
     
 

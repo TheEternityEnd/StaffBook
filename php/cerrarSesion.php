@@ -6,7 +6,7 @@ if (isset($_SESSION['usuario'])) {
     $usuario = $_SESSION['usuario'];
 
     // Registrar la acción en log_usuarios
-    $accion = "cierre_sesion";
+    $accion = "Cierre de Sesion";
     $detalle = "Cierre de sesión desde IP: " . $_SERVER['REMOTE_ADDR'];
 
     // Preparar la consulta para insertar en movimientos_log

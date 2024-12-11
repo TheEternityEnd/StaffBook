@@ -210,3 +210,18 @@ function closeDeleteConfirmation() {
     document.getElementById('delete-confirm-overlay').style.display = 'none';
     document.getElementById('delete-confirm').style.display = 'none';
 }
+
+// Filtrar tarjetas según la búsqueda
+document.querySelector('.search-bar input').addEventListener('input', function () {
+    const searchText = this.value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const name = card.querySelector('.card-name').textContent.toLowerCase();
+        if (name.includes(searchText)) {
+            card.style.display = 'block'; // Mostrar tarjeta si coincide
+        } else {
+            card.style.display = 'none'; // Ocultar tarjeta si no coincide
+        }
+    });
+});

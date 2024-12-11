@@ -8,12 +8,37 @@
         die();
     }
 
+    $usuario = $_SESSION['usuario'];
+
+    // Consultar los datos del usuario
+    $stmt = $conexion->prepare("SELECT nombre, apellido, email, img FROM usuarios WHERE usuario = ?");
+    $stmt->bind_param('s', $usuario);
+    $stmt->execute();
+    $result_usuario = $stmt->get_result();
+
+    // Verificar si se encontró el usuario
+    if ($result_usuario->num_rows > 0) {
+        $user_data = $result_usuario->fetch_assoc();
+        $nombre_usuario = $user_data['nombre'] . " " . $user_data['apellido'];
+        $email_usuario = $user_data['email'];
+        $img_usuario = $user_data['img'] ? $user_data['img'] : './images/avatar_ph.png';
+    } else {
+        // Redirigir si no se encuentran datos
+        header("location: index.php");
+        session_destroy();
+        die();
+    }
+
+    $stmt->close();
+
     // Consulta para obtener todos los empleados ordenados alfabéticamente por nombre
     $query = "SELECT id, nombre, clave, funcion_empleado, area, puesto, escolaridad, sexo, tipo_sangre, fecha_nacimiento, estado_civil, curp, rfc, afiliacion, fecha_ingreso, fecha_baja, telefono, domicilio, email_personal, email_tecnm, img
             FROM empleados 
             ORDER BY nombre ASC"; // Ordenar alfabéticamente por nombre
     $result = $conexion->query($query);
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -49,23 +74,23 @@
             </div>
         </div>
         <div class="profile" onclick="toggleSidebar()">
-            <img src="https://dummyimage.com/50x50/000/fff.png" alt="Profile Picture" class="profile-img">
-            <span>Quandale Dingle</span>
+            <img src="<?php echo htmlspecialchars($img_usuario); ?>" alt="Profile Picture" class="profile-img">
+            <span><?php echo htmlspecialchars($nombre_usuario); ?></span>
         </div>
+
     </header>
 
     <!--Sidebar derecho del perfil de usuario-->
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <img src="https://dummyimage.com/80x80/000/fff.png" alt="Profile Picture" class="sidebar-img">
+            <img src="<?php echo htmlspecialchars($img_usuario); ?>" alt="Profile Picture" class="sidebar-img">
             <div>
-                <h3>Quandale Dingle</h3>
-                <p>email@example.com</p>
+                <h3><?php echo htmlspecialchars($nombre_usuario); ?></h3>
+                <p><?php echo htmlspecialchars($email_usuario); ?></p>
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li><span>⚙️</span> Configuración</li>
             <li><span>🗂️</span> Historial</li>
             <li><span>📊</span> Exportar a Excel</li>
         </ul>
@@ -136,42 +161,6 @@
             <button class="letter">Y</button>
             <button class="letter">Z</button>
         </div>
-
-        <div class="filters">
-            <select>
-                <option>Puesto</option>
-                <option>Administrativo</option>
-                <option>Analista</option>
-                <option>Docente</option>
-            </select>
-            <select>
-                <option>Sexo</option>
-                <option>Masculino</option>
-                <option>Femenino</option>
-            </select>
-            <select>
-                <option>T.S.</option>
-                <option>Técnico</option>
-                <option>Superior</option>
-            </select>
-            <select>
-                <option>Escolaridad</option>
-                <option>Bachillerato</option>
-                <option>Licenciatura</option>
-                <option>Maestría</option>
-            </select>
-            <select>
-                <option>Tipo</option>
-                <option>Tiempo Completo</option>
-                <option>Medio Tiempo</option>
-            </select>
-            <button class="reset-filters">
-                <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 100 125" x="0px" y="0px" width="55" height="55" fill="#B0B0B0">
-                    <path d="M81.12,77.88l-6.88-6.88,6.88-6.88c.57-.57,.88-1.32,.88-2.12s-.31-1.55-.88-2.12h0c-1.13-1.13-3.11-1.13-4.24,0l-6.88,6.88-6.88-6.88c-1.13-1.13-3.11-1.13-4.24,0-.57,.57-.88,1.32-.88,2.12s.31,1.55,.88,2.12l6.88,6.88-6.88,6.88c-.57,.57-.88,1.32-.88,2.12s.31,1.55,.88,2.12c1.13,1.14,3.11,1.14,4.24,0l6.88-6.88,6.88,6.88c1.13,1.13,3.11,1.13,4.24,0,.57-.57,.88-1.32,.88-2.12s-.31-1.55-.88-2.12Z"/>
-                    <path d="M72,29.51v-5.51c0-3.87-3.13-7-7-7H25c-3.87,0-7,3.13-7,7v5.51c0,3.47,1.35,6.74,3.81,9.19l12.19,12.19v21.1c0,2.44,1.24,4.67,3.32,5.95,2.03,1.25,4.68,1.38,6.81,.31l4.1-2.05c1.48-.74,2.19-2.54,1.48-4.03-.35-.74-.98-1.3-1.76-1.56-.76-.25-1.57-.2-2.29,.16l-4.21,2.11c-.66,.33-1.45-.15-1.45-.89v-23.59l-13.95-13.95c-1.32-1.32-2.05-3.08-2.05-4.95v-5.51c0-.55,.45-1,1-1h40c.55,0,1,.45,1,1v5.51c0,1.87-.73,3.63-2.05,4.95l-10.34,10.34c-.52,.52-.88,1.19-.94,1.93-.08,.9,.24,1.76,.87,2.39,1.13,1.14,3.11,1.14,4.24,0l10.42-10.41c2.46-2.45,3.81-5.72,3.81-9.19Z"/>
-                </svg>
-            </button>
-        </div>
     </main>
 
     <!-- Grid de tarjetas -->
@@ -200,7 +189,14 @@
                     <form action="./public/form_empleados_update.php" method="GET">
                         <div class="card-buttons">
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                            <button class="edit-button" type="submit">✏️</button>
+                            <button class="edit-button" type="submit" onclick="event.stopPropagation();">✏️</button>
+                            <!-- Botón de eliminación que llama a la función JS -->
+                            <button 
+                                class="delete-button" 
+                                type="button" 
+
+                                onclick="event.stopPropagation(); showDeleteConfirmation(<?php echo $row['id']; ?>)">❌
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -266,7 +262,7 @@
         </div>
     </div>
 
-    <div class="delete-confirm-overlay" id="delete-confirm-overlay"></div>
+    <div class="delete-confirm-overlay" id="delete-confirm-overlay" onclick="closeDeleteConfirmation()"></div>
     <div class="delete-confirm" id="delete-confirm">
         <p>¿Estás seguro de que deseas eliminar este empleado?</p>
         <form action="php/delete_employee.php" method="POST">
@@ -275,8 +271,6 @@
             <button type="button" class="cancel-delete-btn" onclick="closeDeleteConfirmation()">Cancelar</button>
         </form>
     </div>
-
-
 
     <!--Script-->
     <script src="js/mainScript.js"></script>

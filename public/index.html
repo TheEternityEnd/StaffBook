@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaffBook − Acceso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="stylesIndex.css">
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="dashboard.html" method="POST">
+                <h1>Crear Cuenta</h1>
+                <div class="social-icons">
+                </div>
+                <span>o usa tu email para registrarte</span>
+                <input type="text" placeholder="Nombre de Usuario" name="userRegister" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="text" placeholder="Nombre" name="name" required>
+                <input type="text" placeholder="Apellido" name="lastname" required>
+                <input type="password" placeholder="Contraseña" name="passRegister" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+
+        <div class="form-container sign-in">
+            <form action="dashboard.html" method="POST">
+                <h1>Iniciar Sesión</h1>
+                <div class="social-icons">
+                </div>
+                <span>o usa tu usuario y contraseña</span>
+                <input type="text" placeholder="Nombre de Usuario" name="userLogin" required>
+                <input type="password" placeholder="Contraseña" name="passLogin" required>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>¡Bienvenido de vuelta!</h1>
+                    <p>Ingresa tus datos personales para usar todas las funciones del sitio</p>
+                    <button class="hidden" id="login">Iniciar Sesión</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <div class="logo-container">
+                        <img src="images/mainLogo1.png" alt="Logo StaffBook">
+                    </div>
+                    <h1>¡Hola, Amigo!</h1>
+                    <p>Regístrate con tus datos personales para usar todas las funciones del sitio</p>
+                    <button class="hidden" id="register">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

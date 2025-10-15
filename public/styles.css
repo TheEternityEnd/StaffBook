@@ -1,0 +1,326 @@
+/* Importar una fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #072146;
+    --secondary-color: #456594;
+    --background-color: #f0f0f5;
+    --text-color: #333;
+    --sidebar-color: #fff;
+    --card-bg-color: #fff;
+    --box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    background: var(--background-color);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Barra Lateral --- */
+.sidebar {
+    position: fixed;
+    width: 260px;
+    height: 100%;
+    background: var(--sidebar-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: var(--box-shadow);
+    transition: 0.5s;
+}
+
+.sidebar .logo {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar .logo img {
+    max-width: 150px;
+}
+
+.sidebar .menu {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.sidebar .menu li {
+    padding: 1px 20px;
+    transition: 0.3s;
+}
+
+.sidebar .menu li.active {
+    background-color: var(--primary-color);
+}
+
+.sidebar .menu li.active a {
+    color: #fff;
+}
+
+.sidebar .menu li:hover {
+    background-color: var(--secondary-color);
+}
+.sidebar .menu li:hover a {
+    color: #fff;
+}
+
+.sidebar .menu a {
+    color: #999;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.sidebar .menu a i {
+    font-size: 20px;
+}
+
+.sidebar .logout {
+    margin-top: auto;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* --- Contenido Principal --- */
+.main--content {
+    position: relative;
+    background: var(--background-color);
+    width: calc(100% - 260px);
+    margin-left: 260px;
+    padding: 20px;
+}
+
+.header--wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.header--title {
+    color: var(--secondary-color);
+}
+
+.header--title span {
+    font-size: 15px;
+}
+
+.header--title h2 {
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+.user--info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search--box {
+    background: #f0f0f5;
+    border-radius: 15px;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+}
+
+.search--box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.user--info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* --- Tarjetas de Datos --- */
+.card--container {
+    padding: 20px;
+    background: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+}
+
+.main--title {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.card--wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.data--card {
+    background: var(--background-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.3s;
+}
+.data--card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.card--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.amount {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.amount--value {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.icon {
+    font-size: 28px;
+    padding: 15px;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.card--detail {
+    font-size: 13px;
+    color: #777;
+}
+
+/* Colores de tarjetas */
+.light-blue { border-left: 5px solid #3498db; }
+.light-blue .icon { background: #3498db; }
+
+.light-green { border-left: 5px solid #2ecc71; }
+.light-green .icon { background: #2ecc71; }
+
+.light-orange { border-left: 5px solid #f39c12; }
+.light-orange .icon { background: #f39c12; }
+
+.light-red { border-left: 5px solid #e74c3c; }
+.light-red .icon { background: #e74c3c; }
+
+
+/* --- Tabla de Empleados --- */
+.tabular--wrapper {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+tbody {
+    background: #f9f9f9;
+}
+
+td {
+    padding: 15px;
+    font-size: 14px;
+    color: #444;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #e9e9e9;
+}
+
+tfoot {
+    background: #f2f2f2;
+    font-weight: 600;
+}
+
+tfoot td {
+    padding: 15px;
+    color: #555;
+}
+
+.status {
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.status.active { background-color: #2ecc71; }
+.status.inactive { background-color: #e74c3c; }
+.status.pending { background-color: #f39c12; }
+
+
+table button {
+    background: var(--secondary-color);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+table button:hover {
+    background: var(--primary-color);
+}

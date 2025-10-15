@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaffBook - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="images/mainLogo1_Blue_Title.png" alt="StaffBook Logo">
+        </div>
+        <ul class="menu">
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="form.html">
+                    <i class="fas fa-users"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+            <li>
+                <a href="depa.html">
+                    <i class="fas fa-building"></i>
+                    <span>Departamentos</span>
+                </a>
+            </li>
+            <li>
+                 <a href="admin.html">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Administración</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span>StaffBook</span>
+                <h2>Dashboard</h2>
+            </div>
+            <div class="user--info">
+                <div class="search--box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Buscar empleado..." />
+                </div>
+                <img src="images/avatar_ph.png" alt="User Avatar">
+            </div>
+        </div>
+
+        <div class="card--container">
+            <h3 class="main--title">Datos Generales</h3>
+            <div class="card--wrapper">
+                <div class="data--card light-blue">
+                    <div class="card--header">
+                        <div class="amount">
+                            <span class="title">Total Empleados</span>
+                            <span class="amount--value">54</span>
+                        </div>
+                        <i class="fas fa-users icon"></i>
+                    </div>
+                    <span class="card--detail">4 nuevos empleados esta semana</span>
+                </div>
+                <div class="data--card light-green">
+                    <div class="card--header">
+                        <div class="amount">
+                            <span class="title">Departamentos</span>
+                            <span class="amount--value">8</span>
+                        </div>
+                        <i class="fas fa-building icon"></i>
+                    </div>
+                    <span class="card--detail">Marketing es el más grande</span>
+                </div>
+                <div class="data--card light-orange">
+                    <div class="card--header">
+                        <div class="amount">
+                            <span class="title">Empleados Activos</span>
+                            <span class="amount--value">49</span>
+                        </div>
+                        <i class="fas fa-user-check icon"></i>
+                    </div>
+                    <span class="card--detail">5 empleados en licencia</span>
+                </div>
+                <div class="data--card light-red">
+                    <div class="card--header">
+                        <div class="amount">
+                            <span class="title">Nuevas Contrataciones</span>
+                            <span class="amount--value">12</span>
+                        </div>
+                        <i class="fas fa-user-plus icon"></i>
+                    </div>
+                    <span class="card--detail">Últimos 3 meses</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Directorio de Empleados</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Puesto</th>
+                            <th>Departamento</th>
+                            <th>Teléfono</th>
+                            <th>Fecha de Ingreso</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ana López</td>
+                            <td>ana.lopez@empresa.com</td>
+                            <td>Desarrolladora Frontend</td>
+                            <td>Tecnología</td>
+                            <td>555-1234</td>
+                            <td>15-01-2022</td>
+                            <td><span class="status active">Activo</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Martínez</td>
+                            <td>carlos.m@empresa.com</td>
+                            <td>Gerente de Marketing</td>
+                            <td>Marketing</td>
+                            <td>555-5678</td>
+                            <td>03-05-2020</td>
+                            <td><span class="status active">Activo</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Sofía García</td>
+                            <td>sofia.garcia@empresa.com</td>
+                            <td>Analista de RRHH</td>
+                            <td>Recursos Humanos</td>
+                            <td>555-8765</td>
+                            <td>20-09-2023</td>
+                            <td><span class="status active">Activo</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Javier Rodríguez</td>
+                            <td>j.rodriguez@empresa.com</td>
+                            <td>Diseñador Gráfico</td>
+                            <td>Marketing</td>
+                            <td>555-4321</td>
+                            <td>11-11-2021</td>
+                            <td><span class="status inactive">En Licencia</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Laura Fernández</td>
+                            <td>laura.f@empresa.com</td>
+                            <td>Ingeniera de Software</td>
+                            <td>Tecnología</td>
+                            <td>555-3456</td>
+                            <td>01-07-2019</td>
+                            <td><span class="status active">Activo</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                         <tr>
+                            <td>Miguel Pérez</td>
+                            <td>miguel.perez@empresa.com</td>
+                            <td>Soporte Técnico</td>
+                            <td>Tecnología</td>
+                            <td>555-9870</td>
+                            <td>02-03-2024</td>
+                            <td><span class="status pending">Pendiente</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8">Total de Empleados: 6</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

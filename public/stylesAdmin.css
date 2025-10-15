@@ -1,0 +1,86 @@
+/* --- Estilos para la página de Administración --- */
+
+/* Reutiliza .tabular--wrapper del mainStyles.css, pero podemos añadir espacios si es necesario */
+.tabular--wrapper {
+    margin-bottom: 20px;
+}
+
+/* Estilos para las etiquetas de Rol y Estado */
+.role,
+.status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Colores para Roles */
+.role.admin {
+    background-color: #e74c3c; /* Rojo */
+}
+
+.role.user {
+    background-color: #3498db; /* Azul */
+}
+
+/* Colores para Estado de Verificación */
+.status.verified {
+    background-color: #2ecc71; /* Verde */
+}
+
+.status.not-verified {
+    background-color: #f39c12; /* Naranja */
+}
+
+/* Estilos para los botones de acción en las tablas */
+.action-btn {
+    border: none;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    margin: 0 3px;
+    font-size: 14px;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.action-btn.edit {
+    background-color: var(--secondary-color);
+}
+
+.action-btn.edit:hover {
+    background-color: #3a5a8a;
+}
+
+.action-btn.delete {
+    background-color: #c0392b;
+}
+
+.action-btn.delete:hover {
+    background-color: #a93226;
+}
+
+/* Asegurar que el título principal de cada sección tenga buen margen */
+.main--title {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+/* Media queries para mejorar la visualización en dispositivos móviles */
+@media (max-width: 768px) {
+    th, td {
+        font-size: 13px; /* Reducir tamaño de fuente en móviles */
+        padding: 10px;
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}

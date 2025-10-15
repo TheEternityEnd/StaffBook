@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaffBook - Departamentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesDepa.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="images/mainLogo1_Blue_Title.png" alt="StaffBook Logo">
+        </div>
+        <ul class="menu">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="form.html">
+                    <i class="fas fa-users"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-building"></i>
+                    <span>Departamentos</span>
+                </a>
+            </li>
+            <li>
+                 <a href="admin.html">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Administración</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span>Organización</span>
+                <h2>Gestión de Departamentos</h2>
+            </div>
+            <div class="user--info">
+                 <button class="btn-add-department"><i class="fas fa-plus"></i> Añadir Departamento</button>
+                <img src="images/avatar_ph.png" alt="User Avatar">
+            </div>
+        </div>
+
+        <div class="department-cards--container">
+            <div class="department--card">
+                <div class="card--header">
+                    <div class="card--title-group">
+                        <i class="fas fa-laptop-code icon-tech"></i>
+                        <span class="title">Tecnología</span>
+                    </div>
+                    <span class="employee-count">12 Empleados</span>
+                </div>
+                <div class="card--body">
+                    <p><strong>Jefe de área:</strong> Laura Fernández</p>
+                </div>
+                <div class="card--footer">
+                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="department--card">
+                 <div class="card--header">
+                    <div class="card--title-group">
+                        <i class="fas fa-bullhorn icon-marketing"></i>
+                        <span class="title">Marketing</span>
+                    </div>
+                    <span class="employee-count">8 Empleados</span>
+                </div>
+                <div class="card--body">
+                    <p><strong>Jefe de área:</strong> Carlos Martínez</p>
+                </div>
+                <div class="card--footer">
+                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="department--card">
+                 <div class="card--header">
+                    <div class="card--title-group">
+                        <i class="fas fa-handshake icon-hr"></i>
+                        <span class="title">Recursos Humanos</span>
+                    </div>
+                    <span class="employee-count">5 Empleados</span>
+                </div>
+                <div class="card--body">
+                    <p><strong>Jefe de área:</strong> Sofía García</p>
+                </div>
+                <div class="card--footer">
+                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Directorio de Empleados por Departamento</h3>
+            
+            <div class="employee-filter-controls">
+                <div class="filter-group">
+                    <label for="department-filter">Filtrar por Departamento</label>
+                    <select id="department-filter" name="department-filter">
+                        <option value="all">Mostrar Todos</option>
+                        <option value="tech" selected>Tecnología</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="hr">Recursos Humanos</option>
+                    </select>
+                </div>
+                <div class="alphabet-filter">
+                    <button>A</button> <button class="active">B</button> <button>C</button> <button>D</button>
+                    <button>E</button> <button>F</button> <button>G</button> <button>H</button>
+                    <button>I</button> <button>J</button> <button>K</button> <button>L</button>
+                    <button>M</button> <button>N</button> <button>O</button> <button>P</button>
+                    <button>Q</button> <button>R</button> <button>S</button> <button>T</button>
+                    <button>U</button> <button>V</button> <button>W</button> <button>X</button>
+                    <button>Y</button> <button>Z</button> <button class="clear">Todos</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Puesto</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Beatriz Mendoza</td>
+                            <td>Desarrolladora Backend</td>
+                            <td>beatriz.m@empresa.com</td>
+                            <td>555-2233</td>
+                            <td><button class="btn-view-profile"><i class="fas fa-eye"></i> Ver Perfil</button></td>
+                        </tr>
+                        <tr>
+                            <td>Benjamín Campos</td>
+                            <td>Analista de Sistemas</td>
+                            <td>benjamin.c@empresa.com</td>
+                            <td>555-4455</td>
+                            <td><button class="btn-view-profile"><i class="fas fa-eye"></i> Ver Perfil</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaffBook - Registrar Empleado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesForm.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="images/mainLogo1_Blue_Title.png" alt="StaffBook Logo">
+        </div>
+        <ul class="menu">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+            <li>
+                <a href="depa.html">
+                    <i class="fas fa-building"></i>
+                    <span>Departamentos</span>
+                </a>
+            </li>
+            <li>
+                 <a href="admin.html">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Administración</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span>Empleados</span>
+                <h2>Registrar Nuevo Empleado</h2>
+            </div>
+            <div class="user--info">
+                <img src="images/avatar_ph.png" alt="User Avatar">
+            </div>
+        </div>
+
+        <div class="form--wrapper">
+            <div class="form-container">
+                <form action="../php/procesar_empleado.php" method="POST" class="employee-form" enctype="multipart/form-data">
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-user-circle"></i> Información General</h3>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="nombre">Nombre Completo</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Nombre(s) y Apellido(s)" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="clave">Clave de Empleado</label>
+                                <input type="text" id="clave" name="clave" placeholder="Ej. 12345" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-briefcase"></i> Detalles del Puesto</h3>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="funcion_empleado">Función del Empleado</label>
+                                <select id="funcion_empleado" name="funcion_empleado" required>
+                                    <option value="" disabled selected>- Seleccione una opción -</option>
+                                    <option value="Administrativo">Administrativo</option>
+                                    <option value="Analista">Analista</option>
+                                    <option value="Apoyo">Apoyo</option>
+                                    <option value="Docencia">Docencia</option>
+                                    <option value="Servicio">Servicio</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label for="tipo_empleado">Tipo de Empleado</label>
+                                <select id="tipo_empleado" name="tipo_empleado" required>
+                                    <option value="" disabled selected>- Seleccione una opción -</option>
+                                    <option value="Confianza">Confianza</option>
+                                    <option value="Determinado">Determinado</option>
+                                    <option value="Indeterminado">Indeterminado</option>
+                                    <option value="Eventual">Eventual</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="area">Área</label>
+                                <select id="area" name="area" required>
+                                    <option value="" disabled selected>- Seleccione una opción -</option>
+                                    <option value="Sub. de Serv. Administrativos">Sub. de Serv. Administrativos</option>
+                                    <option value="Direccion General">Dirección General</option>
+                                    <option value="Sub. Academica">Sub. Académica</option>
+                                    <option value="Sub. de Admon. y Finanzas">Sub. de Admon. y Finanzas</option>
+                                    <option value="Sub. de Plan. y Vinculacion">Sub. de Plan. y Vinculación</option>
+                                </select>
+                            </div>
+                             <div class="input-field">
+                                <label for="puesto">Puesto</label>
+                                <input type="text" id="puesto" name="puesto" placeholder="Ej. Jefe de Departamento" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-address-card"></i> Información Personal</h3>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="sexo">Sexo</label>
+                                <select id="sexo" name="sexo" required>
+                                    <option value="" disabled selected>- Seleccione una opción -</option>
+                                    <option value="Hombre">Hombre</option>
+                                    <option value="Mujer">Mujer</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                            </div>
+                             <div class="input-field">
+                                <label for="estado_civil">Estado Civil</label>
+                                <select id="estado_civil" name="estado_civil" required>
+                                    <option value="" disabled selected>- Seleccione una opción -</option>
+                                    <option value="Casado">Casado(a)</option>
+                                    <option value="Soltero">Soltero(a)</option>
+                                    <option value="Viudo">Viudo(a)</option>
+                                    <option value="Divorciado">Divorciado(a)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="curp">CURP</label>
+                                <input type="text" id="curp" name="curp" placeholder="18 caracteres alfanuméricos" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="rfc">RFC</label>
+                                <input type="text" id="rfc" name="rfc" placeholder="13 caracteres alfanuméricos" required>
+                            </div>
+                        </div>
+                         <div class="input-group">
+                            <div class="input-field">
+                                <label for="tipo_sangre">Tipo de Sangre</label>
+                                <select id="tipo_sangre" name="tipo_sangre" required>
+                                    <option value="" disabled selected>- Seleccione una opción -</option>
+                                    <option value="A+">A+</option><option value="A-">A-</option>
+                                    <option value="B+">B+</option><option value="B-">B-</option>
+                                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                                    <option value="O+">O+</option><option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label for="escolaridad">Escolaridad</label>
+                                <select id="escolaridad" name="escolaridad" required>
+                                    <option value="" disabled selected>- Selecciona una opción -</option>
+                                    <option value="Ing. en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
+                                    <option value="Ing. Civil">Ing. Civil</option>
+                                    <option value="Ing. Industrial">Ing. Industrial</option>
+                                    <option value="Lic. en Administracion">Lic. en Administración</option>
+                                    <option value="No es Docente">No es Docente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-calendar-alt"></i> Fechas y Contacto</h3>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="fecha_ingreso">Fecha de Ingreso</label>
+                                <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="fecha_baja">Fecha de Baja (Opcional)</label>
+                                <input type="date" id="fecha_baja" name="fecha_baja">
+                            </div>
+                            <div class="input-field">
+                                <label for="afiliacion">Afiliación</label>
+                                <input type="text" id="afiliacion" name="afiliacion" placeholder="Número de afiliación" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-field">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="Ej. 555-123-4567" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="domicilio">Domicilio</label>
+                                <input type="text" id="domicilio" name="domicilio" placeholder="Calle, Número, Colonia, C.P." required>
+                            </div>
+                        </div>
+                         <div class="input-group">
+                            <div class="input-field">
+                                <label for="email_personal">Email Personal</label>
+                                <input type="email" id="email_personal" name="email_personal" placeholder="correo@dominio.com" required>
+                            </div>
+                            <div class="input-field">
+                                <label for="email_tecnm">Email TecNM</label>
+                                <input type="email" id="email_tecnm" name="email_tecnm" placeholder="correo@tecnm.mx" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3><i class="fas fa-image"></i> Fotografía del Empleado</h3>
+                        <div class="input-field">
+                            <label for="imagen_empleado">Subir Archivo (PNG, JPG - Máx 5MB)</label>
+                            <input type="file" id="imagen_empleado" name="imagen_empleado" class="file-input" accept=".png, .jpg, .jpeg">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="window.location.href='../main.php'">Cancelar</button>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-plus-circle"></i> Registrar Empleado
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

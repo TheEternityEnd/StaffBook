@@ -167,6 +167,28 @@
             </div>
         </div>
 
+        <div class="tabular--wrapper" style="margin-top: 20px;">
+            <h3 class="main--title">Análisis de Permisos</h3>
+            <div class="charts--wrapper">
+                <div class="chart-container">
+                    <h3 class="main--title">Solicitudes por Área</h3>
+                    <canvas id="chartArea"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="main--title">Permisos Mensuales (Empleado)</h3>
+                    <div class="filter-group" style="margin-bottom: 15px;">
+                        <label for="chartEmpleadoSelect">Seleccione un empleado:</label>
+                        <select id="chartEmpleadoSelect">
+                            <option value="">-- Todos --</option>
+                            <option value="ana-lopez">Ana López</option>
+                            <option value="carlos-martinez">Carlos Martínez</option>
+                        </select>
+                    </div>
+                    <canvas id="chartIndividual"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

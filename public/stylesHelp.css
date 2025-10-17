@@ -1,0 +1,80 @@
+/* --- Estilos para la página de Ayuda --- */
+
+.help-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.help-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+}
+
+.help-section h3 {
+    color: var(--primary-color);
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.help-section p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.contact-info i {
+    color: var(--secondary-color);
+    margin-right: 10px;
+}
+
+.btn-guide {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-guide:hover {
+    background-color: var(--primary-color);
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-left: 4px solid var(--secondary-color);
+    border-radius: 4px;
+}
+
+.faq-item strong {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.faq-item p {
+    margin: 8px 0 0 0;
+}

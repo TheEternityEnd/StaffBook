@@ -27,7 +27,7 @@ Para ejecutar StaffBook en tu entorno local, solo necesitas tener **Node.js** y 
 Primero, clona o descarga este repositorio en tu máquina local.
 
 ```bash
-git clone [https://github.com/tu-usuario/StaffBook.git](https://github.com/tu-usuario/StaffBook.git)
+git clone https://github.com/TheEternityEnd/StaffBook.git
 cd StaffBook
 ```
 

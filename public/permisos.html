@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaffBook - Gestión de Permisos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylesPermisos.css"> </head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="images/mainLogo1_Blue_Title.png" alt="StaffBook Logo">
+        </div>
+        <ul class="menu">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="form.html">
+                    <i class="fas fa-users"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="permisos.html">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Permisos</span>
+                </a>
+            </li>
+            <li>
+                <a href="depa.html">
+                    <i class="fas fa-building"></i>
+                    <span>Departamentos</span>
+                </a>
+            </li>
+            <li>
+                 <a href="admin.html">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Administración</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span>Gestión</span>
+                <h2>Permisos y Ausencias</h2>
+            </div>
+            <div class="user--info">
+                <button class="btn-add" id="solicitarPermisoBtn"><i class="fas fa-plus"></i> Solicitar Permiso</button>
+                <img src="images/avatar_ph.png" alt="User Avatar">
+            </div>
+        </div>
+
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Historial de Solicitudes</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Tipo de Permiso</th>
+                            <th>Fechas</th>
+                            <th>Jefe que autoriza</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ana López</td>
+                            <td>Salud</td>
+                            <td>2023-10-28 al 2023-10-29</td>
+                            <td>Laura Fernández</td>
+                            <td><span class="status pending">Pendiente</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Martínez</td>
+                            <td>Personal</td>
+                            <td>2023-11-15</td>
+                             <td>Laura Fernández</td>
+                            <td><span class="status active">Aprobado</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                         <tr>
+                            <td>Sofía García</td>
+                            <td>Vacaciones</td>
+                            <td>2023-12-20 al 2024-01-05</td>
+                            <td>Laura Fernández</td>
+                            <td><span class="status inactive">Rechazado</span></td>
+                            <td><button><i class="fas fa-edit"></i> Editar</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">Total de Solicitudes: 3</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="permisoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Solicitud de Permiso</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form class="permiso-form">
+                    <div class="form-group">
+                        <label for="empleadoNombre">Nombre del Empleado</label>
+                        <input type="text" id="empleadoNombre" value="Ana López" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="empleadoPuesto">Puesto del Empleado</label>
+                        <input type="text" id="empleadoPuesto" value="Desarrolladora Frontend" readonly>
+                    </div>
+                    <div class="form-group-inline">
+                        <div class="form-group">
+                            <label for="fechaInicio">Fecha de Inicio</label>
+                            <input type="date" id="fechaInicio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaFin">Fecha de Fin</label>
+                            <input type="date" id="fechaFin" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="motivoFalta">Motivo de la Falta</label>
+                        <input type="text" id="motivoFalta" placeholder="Escriba el motivo" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="tipoPermiso">Tipo de Permiso</label>
+                        <select id="tipoPermiso">
+                          <option value="Personal">Personal</option>
+                          <option value="Salud">Salud</option>
+                          <option value="Sindical">Sindical</option>
+                          <option value="Parcial">Parcial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jefeAutoriza">Jefe que autoriza</label>
+                        <select id="jefeAutoriza">
+                            <option value="Laura Fernández">Laura Fernández</option>
+                            <option value="Carlos Martínez">Carlos Martínez</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fileAdjuntos">Adjuntar Archivo (Opcional)</label>
+                        <input type="file" id="fileAdjuntos" multiple>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Enviar Solicitud</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script para manejar la ventana modal
+        const modal = document.getElementById('permisoModal');
+        const btn = document.getElementById('solicitarPermisoBtn');
+        const span = document.getElementsByClassName('close-btn')[0];
+
+        btn.onclick = () => modal.style.display = 'block';
+        span.onclick = () => modal.style.display = 'none';
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

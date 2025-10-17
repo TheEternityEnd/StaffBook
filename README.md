@@ -62,7 +62,7 @@ staffbook/
 ├── main.js              # Archivo principal de Electron (proceso principal)
 ├── package.json         # Dependencias y scripts del proyecto
 ├── public/              # Carpeta con todos los archivos del frontend
-│   ├── assets/          # (Recomendado) Carpeta para CSS, JS, imágenes
+│   ├── assets/          # Carpeta para CSS, JS, imágenes
 │   ├── admin.html
 │   ├── dashboard.html
 │   ├── help.html
@@ -70,7 +70,7 @@ staffbook/
 │   ├── permisos.html
 │   └── ... (y el resto de archivos)
 │
-└── server/              # (Recomendado) Carpeta para la lógica del backend
+└── server/              # Carpeta para la lógica del backend
 ```
 
 * `main.js`: Es el corazón de la aplicación Electron. Se encarga de crear la ventana del navegador y manejar los eventos del sistema operativo.

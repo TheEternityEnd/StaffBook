@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="stylesSettings.css">
+    <link rel="stylesheet" href="stylesSettings1.css">
 </head>
 <body>
     <div class="sidebar">
@@ -177,7 +178,94 @@
                     </div>
                 </div>
             </div>
+            <div class="settings-card admin-only">
+                <div class="card-header">
+                    <h3><i class="fas fa-book"></i> Gestión de Catálogos <span class="admin-tag">Admin</span></h3>
+                    <p>Administra los datos internos del sistema como áreas, departamentos y jefes.</p>
+                </div>
+                <div class="card-body">
+                    <div class="tabs-container">
+                        <button class="tab active" data-tab="areas">Áreas</button>
+                        <button class="tab" data-tab="departamentos">Departamentos</button>
+                        <button class="tab" data-tab="jefes">Jefes</button>
+                        <button class="tab" data-tab="puestos">Puestos de Jefes</button>
+                        <button class="tab" data-tab="limites">Límites de Permisos</button>
+                    </div>
+
+                    <div id="areas" class="tab-content active">
+                        <h4>Gestionar Áreas</h4>
+                        <div class="management-list">
+                            <div class="list-item">
+                                <input type="text" value="Dirección General">
+                                <div class="actions">
+                                    <button class="btn-action btn-save-item" title="Guardar"><i class="fas fa-save"></i></button>
+                                    <button class="btn-action btn-delete-item" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="list-item">
+                                <input type="text" value="Sub. Académica">
+                                 <div class="actions">
+                                    <button class="btn-action btn-save-item" title="Guardar"><i class="fas fa-save"></i></button>
+                                    <button class="btn-action btn-delete-item" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-add-item"><i class="fas fa-plus"></i> Añadir Área</button>
+                    </div>
+
+                    <div id="departamentos" class="tab-content">
+                        <h4>Gestionar Departamentos</h4>
+                         <div class="filter-group" style="margin-bottom: 15px;">
+                            <label for="area-filter">Filtrar por Área</label>
+                            <select id="area-filter">
+                                <option>Sub. Académica</option>
+                                <option>Dirección General</option>
+                            </select>
+                        </div>
+                        <div class="management-list">
+                             <div class="list-item">
+                                <input type="text" value="Sistemas y Computación">
+                                <div class="actions">
+                                    <button class="btn-action btn-save-item" title="Guardar"><i class="fas fa-save"></i></button>
+                                    <button class="btn-action btn-delete-item" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-add-item"><i class="fas fa-plus"></i> Añadir Departamento</button>
+                    </div>
+
+                    <div id="jefes" class="tab-content">
+                        <h4>Gestionar Jefes</h4>
+                        <button class="btn-add-item"><i class="fas fa-plus"></i> Añadir Jefe</button>
+                    </div>
+
+                    <div id="puestos" class="tab-content">
+                        <h4>Gestionar Puestos de Jefes</h4>
+                        <button class="btn-add-item"><i class="fas fa-plus"></i> Añadir Puesto</button>
+                    </div>
+
+                    <div id="limites" class="tab-content">
+                        <h4>Límites Anuales por Tipo de Permiso</h4>
+                        <div class="management-list">
+                            <div class="list-item">
+                                <label style="width: 120px;">Personal:</label>
+                                <input type="number" value="5">
+                            </div>
+                             <div class="list-item">
+                                <label style="width: 120px;">Salud:</label>
+                                <input type="number" value="10">
+                            </div>
+                             <div class="list-item">
+                                <label style="width: 120px;">Sindical:</label>
+                                <input type="number" value="3">
+                            </div>
+                        </div>
+                        <button class="btn-add-item"><i class="fas fa-save"></i> Guardar Límites</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="settings.js"></script>
 </body>
 </html>

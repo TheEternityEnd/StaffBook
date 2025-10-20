@@ -1,0 +1,137 @@
+// Se importan los modulos
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const { Pool } = require('pg'); // Cliente de PostgreSQL
+const bcrypt = require('bcrypt'); // Para hashear y comparar contraseñas
+
+// Configuración de la conexión a PostgreSQL
+const pool = new Pool({
+    user: 'user',
+    host: '0.0.0.0', // O la IP de tu servidor de BD
+    database: 'schema',
+    password: 'password',
+    port: 5432,
+});
+
+function createWindow() {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            // Adjuntamos el script de preload
+            preload: path.join(__dirname, 'preload.js'),
+            // Estas dos líneas son claves para la seguridad:
+            contextIsolation: true, // Aísla el preload del renderer
+            nodeIntegration: false  // Impide que el renderer use 'require'
+        }
+    });
+
+    win.maximize();
+    win.show();
+    win.loadFile('public/index.html');
+}
+
+app.whenReady().then(() => {
+    createWindow();
+
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
+        }
+    });
+});
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+});
+
+// --- LÓGICA DE AUTENTICACIÓN ---
+
+/**
+ * Manejador del evento de LOGIN
+ */
+ipcMain.handle('login', async (event, username, password) => {
+    if (!username || !password) {
+        return { success: false, message: 'Usuario y contraseña requeridos.' };
+    }
+
+    try {
+        // 1. Buscar al usuario en la tabla 'usuarios'
+        const query = "SELECT * FROM usuarios WHERE username = $1";
+        const result = await pool.query(query, [username]);
+
+        const user = result.rows[0];
+
+        // 2. Si no se encuentra el usuario
+        if (!user) {
+            return { success: false, message: 'Credenciales incorrectas.' };
+        }
+        
+        // 3. (Opcional) Verificar si el usuario está verificado
+        // if (!user.verificado) {
+        //     return { success: false, message: 'Usuario no verificado. Contacte al administrador.' };
+        // }
+
+        // 4. Comparar la contraseña enviada con el hash almacenado
+        const match = await bcrypt.compare(password, user.password_hash);
+
+        if (match) {
+            // ¡Éxito!
+            // Aquí podrías guardar la sesión del usuario si lo deseas
+            return { success: true, message: 'Inicio de sesión exitoso.' };
+        } else {
+            // Contraseña incorrecta
+            return { success: false, message: 'Credenciales incorrectas.' };
+        }
+
+    } catch (error) {
+        console.error('Error en el login:', error);
+        return { success: false, message: 'Error del servidor al intentar iniciar sesión.' };
+    }
+});
+
+/**
+ * Manejador del evento de REGISTRO
+ */
+ipcMain.handle('register', async (event, userData) => {
+    const { userRegister, email, name, lastname, passRegister } = userData;
+
+    // Validación simple
+    if (!userRegister || !email || !passRegister) {
+        return { success: false, message: 'Usuario, email y contraseña son requeridos.' };
+    }
+
+    try {
+        // 1. Hashear la contraseña
+        const saltRounds = 10;
+        const passwordHash = await bcrypt.hash(passRegister, saltRounds);
+
+        // 2. Insertar el nuevo usuario en la BD (tabla 'usuarios')
+        // El rol por defecto es 'Usuario' según tu postgre.sql
+        const query = `
+            INSERT INTO usuarios (username, password_hash, email, nombre, apellido, rol)
+            VALUES ($1, $2, $3, $4, $5, 'Usuario')
+            RETURNING id;
+        `;
+        const values = [userRegister, passwordHash, email, name, lastname];
+        
+        await pool.query(query, values);
+
+        return { success: true, message: '¡Registro exitoso! Ya puedes iniciar sesión.' };
+
+    } catch (error) {
+        console.error('Error en el registro:', error);
+        // Manejar errores de 'UNIQUE constraint' (username o email ya existen)
+        if (error.code === '23505') { // Código de PostgreSQL para violación de unicidad
+            if (error.constraint === 'usuarios_username_key') {
+                return { success: false, message: 'El nombre de usuario ya existe.' };
+            }
+            if (error.constraint === 'usuarios_email_key') {
+                return { success: false, message: 'El email ya está registrado.' };
+            }
+        }
+        return { success: false, message: 'Error del servidor al intentar registrarse.' };
+    }
+});

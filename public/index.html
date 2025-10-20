@@ -12,10 +12,11 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="dashboard.html" method="POST">
+            <form id="register-form">
                 <h1>Crear Cuenta</h1>
                 <div class="social-icons">
                 </div>
+                <div class="error-message" id="register-error"></div>
                 <input type="text" placeholder="Nombre de Usuario" name="userRegister" required>
                 <input type="email" placeholder="Email" name="email" required>
                 <input type="text" placeholder="Nombre" name="name" required>
@@ -26,10 +27,11 @@
         </div>
 
         <div class="form-container sign-in">
-            <form action="dashboard.html" method="POST">
+            <form id="login-form">
                 <h1>Iniciar Sesión</h1>
                 <div class="social-icons">
                 </div>
+                <div class="error-message" id="login-error"></div>
                 <input type="text" placeholder="Nombre de Usuario" name="userLogin" required>
                 <input type="password" placeholder="Contraseña" name="passLogin" required>
                 <a href="#">¿Olvidaste tu contraseña?</a>

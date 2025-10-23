@@ -15,5 +15,7 @@ contextBridge.exposeInMainWorld('api', {
      * @param {object} userData - { userRegister, email, name, lastname, passRegister }
      * @returns {Promise<object>} - { success: boolean, message: string }
      */
-    register: (userData) => ipcRenderer.invoke('register', userData)
+    register: (userData) => ipcRenderer.invoke('register', userData),
+
+    departamentoCrear: (data) => ipcRenderer.invoke('departamento:crear', data)
 });

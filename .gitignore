@@ -1,5 +1,4 @@
 node_modules
-db
 public/assets/documents/terminos_de_uso.docx
-main.js
 public/assets/images/TSC_logo.psd
+.env

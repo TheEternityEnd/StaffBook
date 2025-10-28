@@ -4,11 +4,14 @@ const path = require('path');
 const { Pool } = require('pg'); // Cliente de PostgreSQL
 const bcrypt = require('bcrypt'); // Para hashear y comparar contraseñas
 const cloudinary = require('cloudinary').v2; // Para subir imágenes
+const { is, optimizer, electronApp } = require('@electron-toolkit/utils'); // Importamos utilidades
+
+let mainWindow;
 
 // --- Carga las variables de entorno desde .env ---
 require('dotenv').config();
 
-// --- Configuraciones de Base de Datos (Leídas desde .env) ---
+// --- Configuraciones de Base de Datos ---
 const dbHost = process.env.DB_HOST;
 const dbDatabase = process.env.DB_DATABASE;
 const dbPort = process.env.DB_PORT;
@@ -57,38 +60,47 @@ cloudinary.config({
 
 
 function createWindow() {
-    const win = new BrowserWindow({
+    if (mainWindow) {
+        mainWindow.focus();
+        return;
+    }
+
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        show: false,
         webPreferences: {
-            // Adjuntamos el script de preload
-            preload: path.join(__dirname, 'preload.js'),
-            // Estas dos líneas son claves para la seguridad:
-            contextIsolation: true, // Aísla el preload del renderer
-            nodeIntegration: false  // Impide que el renderer use 'require'
+            preload: path.join(__dirname, '../preload/index.js'), 
+            contextIsolation: true,
+            nodeIntegration: false,
+            sandbox: false // A menudo necesario para que el preload funcione con Vite
         }
     });
 
-    win.maximize();
-    win.show();
-    win.loadFile('public/index.html');
+    mainWindow.maximize();
+    mainWindow.on('ready-to-show', () => {
+        mainWindow.show();
+    });
+
+    // --- LÓGICA DE CARGA DE VITE ---
+    // Esta es la magia: 'electron-vite' proporciona variables de entorno
+    if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+        // En desarrollo, carga la URL del servidor de Vite
+        mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
+        
+        // Opcional: Abre las DevTools automáticamente en desarrollo
+        mainWindow.webContents.openDevTools(); 
+    } else {
+        // En producción, carga el 'index.html' compilado
+        mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+    }
+    // --- FIN DE LÓGICA DE VITE ---
+
+    mainWindow.on('closed', () => {
+        mainWindow = null;
+    });
 }
 
-app.whenReady().then(() => {
-    createWindow();
-
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
-        }
-    });
-});
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
 
 // --- LÓGICA DE AUTENTICACIÓN ---
 
@@ -113,7 +125,7 @@ ipcMain.handle('login', async (event, username, password) => {
             return { success: false, message: 'Credenciales incorrectas.' };
         }
         
-        // 3. (Opcional) Verificar si el usuario está verificado
+        // 3. Verificar si el usuario está verificado
         if (!user.verificado) {
             return { success: false, message: 'Usuario no verificado. Contacte al administrador.' };
         }
@@ -230,5 +242,32 @@ ipcMain.handle('departamento:crear', async (event, data) => {
         }
         
         return { success: false, message: 'Error del servidor al crear el departamento.' };
+    }
+});
+
+// --- Lógica de ciclo de vida de la App (Modificada para 'electron-vite') ---
+app.whenReady().then(() => {
+    // Configura 'electron-vite' (opcional pero recomendado)
+    electronApp.setAppUserModelId('com.staffbook'); // Cambia esto si quieres
+
+    // Optimiza la app
+    app.on('browser-window-created', (_, window) => {
+        optimizer.watchWindowShortcuts(window);
+    });
+
+    createWindow();
+
+
+});
+
+app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+    }
+});
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
     }
 });

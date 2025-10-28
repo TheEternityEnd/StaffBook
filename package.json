@@ -2,9 +2,12 @@
   "name": "staffbook",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "./out/main/index.js",
   "scripts": {
     "start": "electron .",
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,7 +15,10 @@
   "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
-    "electron": "^38.2.2"
+    "@electron-toolkit/utils": "^4.0.0",
+    "electron": "^38.2.2",
+    "electron-vite": "^4.0.1",
+    "vite": "^7.1.12"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

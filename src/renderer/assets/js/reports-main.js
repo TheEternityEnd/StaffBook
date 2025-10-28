@@ -1,6 +1,3 @@
-import '../css/stylesGlobal.css';
-import '../css/stylesReports.css';
-
 document.addEventListener('DOMContentLoaded', () => {
     // --- DATOS DE EJEMPLO ---
 

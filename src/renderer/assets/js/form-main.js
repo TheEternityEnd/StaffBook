@@ -1,2 +1,1 @@
-import '../css/stylesGlobal.css';
-import '../css/stylesForm.css';
+// TODO: implementar lógica aquí

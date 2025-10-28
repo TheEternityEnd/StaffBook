@@ -1,7 +1,3 @@
-import '../css/stylesGlobal.css';
-import '../css/stylesDepa.css';
-import '../css/stylesPermisos.css';
-
 document.addEventListener('DOMContentLoaded', () => {
             
 // --- Lógica para mostrar/ocultar el modal ---

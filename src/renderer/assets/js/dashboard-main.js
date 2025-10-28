@@ -1,1 +1,1 @@
-import '../css/stylesGlobal.css';
+// TODO: implementar lógica aquí

@@ -1,5 +1,5 @@
 // Se importan los modulos
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const { Pool } = require('pg'); // Cliente de PostgreSQL
 const bcrypt = require('bcrypt'); // Para hashear y comparar contraseñas
@@ -89,19 +89,58 @@ function createWindow() {
         mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
         
         // Opcional: Abre las DevTools automáticamente en desarrollo
-        mainWindow.webContents.openDevTools(); 
+        // mainWindow.webContents.openDevTools(); 
     } else {
         // En producción, carga el 'index.html' compilado
         mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
     }
     // --- FIN DE LÓGICA DE VITE ---
 
+    mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+        try {
+            if (url.includes('/assets/documents/guia_usuario.pdf')) {
+                
+                let fileToOpen;
+
+                if (is.dev) {
+                    // MODO DESARROLLO:
+                    // La URL es http://... pero queremos el archivo físico.
+                    // __dirname en el script compilado es .../StaffBook-vite/out/main
+                    // Subimos dos niveles (a .../StaffBook-vite/) y luego
+                    // entramos a la carpeta /public original.
+                    // Un dolor de huevos, lo se.
+                    fileToOpen = path.join(__dirname, '..', '..', 'public', 'assets', 'documents', 'guia_usuario.pdf');
+                } else {
+                    // MODO PRODUCCIÓN:
+                    // La URL ya es un 'file://...' que apunta al archivo
+                    // dentro de los recursos de la app. Es correcta.
+                    fileToOpen = url;
+                }
+                
+                // Abrimos la ruta del archivo (o la URL file://)
+                shell.openExternal(fileToOpen);
+                return { action: 'deny' }; // Denegamos crear la nueva ventana de Electron
+            }
+
+            // Abrir cualquier otro enlace http/https externo
+            if (url.startsWith('http')) {
+                shell.openExternal(url);
+                return { action: 'deny' };
+            }
+
+        } catch (e) {
+            console.error('Error en setWindowOpenHandler:', e);
+        }
+        
+        // Denegar todo lo demás por seguridad
+        return { action: 'deny' };
+    });
+
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
+
 }
-
-
 // --- LÓGICA DE AUTENTICACIÓN ---
 
 /**

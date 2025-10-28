@@ -1,5 +1,5 @@
 "use strict";
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, shell } = require("electron");
 const path = require("path");
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
@@ -59,10 +59,30 @@ function createWindow() {
   });
   if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
     mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
-    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   }
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    try {
+      if (url.includes("/assets/documents/guia_usuario.pdf")) {
+        let fileToOpen;
+        if (is.dev) {
+          fileToOpen = path.join(__dirname, "..", "..", "public", "assets", "documents", "guia_usuario.pdf");
+        } else {
+          fileToOpen = url;
+        }
+        shell.openExternal(fileToOpen);
+        return { action: "deny" };
+      }
+      if (url.startsWith("http")) {
+        shell.openExternal(url);
+        return { action: "deny" };
+      }
+    } catch (e) {
+      console.error("Error en setWindowOpenHandler:", e);
+    }
+    return { action: "deny" };
+  });
   mainWindow.on("closed", () => {
     mainWindow = null;
   });

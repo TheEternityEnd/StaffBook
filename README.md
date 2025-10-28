@@ -1,4 +1,4 @@
-# 📚 StaffBook - Sistema de Gestión de Personal
+# 📚 StaffBook - Sistema de Gestión de Personal DESACTUALIZADO
 
 ¡Bienvenido a **StaffBook**! Una aplicación de escritorio moderna y completa, construida con Electron.js, diseñada para simplificar la administración de empleados, permisos, reportes y mucho más.
 

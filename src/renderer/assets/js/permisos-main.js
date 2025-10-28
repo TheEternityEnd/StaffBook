@@ -1,7 +1,3 @@
-
-import '../css/stylesGlobal.css';
-import '../css/stylesPermisos.css';
-
 // Script para manejar la ventana modal
 const modal = document.getElementById('permisoModal');
 const btn = document.getElementById('solicitarPermisoBtn');

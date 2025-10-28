@@ -1,7 +1,3 @@
-import  '../css/stylesGlobal.css';
-import  '../css/stylesSettings.css';
-import  '../css/stylesSettings1.css';
-
 document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
